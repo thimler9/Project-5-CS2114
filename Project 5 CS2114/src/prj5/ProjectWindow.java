@@ -11,7 +11,9 @@ public class ProjectWindow
 {
     LinkedList<Song> songs;
     String[] studentNames;
-    ?[] studentInfo;
+    Major[] studentMajors;
+    Region[] studentRegions;
+    Hobby[] studentHobbies;
     boolean[][] responseData;
     LinkedList<Chart> chargs;
     
