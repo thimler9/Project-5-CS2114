@@ -9,10 +9,11 @@ package prj5;
  */
 public class Song 
 {
-    String name;
-    String artist;
-    int releaseYear;
-    String genre;
+    private String name;
+    private String artist;
+    private int releaseYear;
+    private String genre;
+    private int index;
     
     public Song()
     {
@@ -37,5 +38,9 @@ public class Song
     public String getGenre()
     {
         return genre;
+    }
+    
+    public int getIndex(){
+        return index;
     }
 }

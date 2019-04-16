@@ -5,37 +5,69 @@ package prj5;
 
 /**
  * @author Tom
+ * @author Eriq Taing (eriq12)
  *
  */
-public class FileReader 
-{
-    String[] majors;
-    String[] hobbies;
-    String[] regions;
-    String[] artists;
-    
-    public FileReader()
-    {
-        
+public class FileReader {
+    private LinkedList<Song> songs;
+    private LinkedList<Student> students;
+
+
+    /**
+     * default constructor
+     * 
+     * @param fileName
+     *            name of file to import
+     */
+    public FileReader(String fileName) {
+
     }
     
-    public String[] getMajors()
-    {
+    private LinkedList<Student> extractStudents(){
+        LinkedList<Student> result = new LinkedList<Student>();
+        //TODO parsing and implementation
+        return result;
+    }
+
+
+    /**
+     * separates a line into multiple sections
+     * 
+     * @param original
+     *            original list of entries separated by ", "
+     * @return a string array with each entry
+     */
+    private String[] partition(String original, int entries) {
+        return original.split(",", entries);
+    }
+
+    /**
+     * matches index with each
+     * 
+     * @return the string of the majors
+     */
+    public Major[] getMajors() {
         return majors;
     }
-    
-    public String[] getRegions()
-    {
+
+
+    /**
+     * 
+     * @return regions
+     */
+    public Region[] getRegions() {
         return regions;
     }
-    
-    public String[] getArtists()
-    {
+
+
+    public String[] getArtists() {
         return artists;
     }
-    
-    public String[] getHobbies()
-    {
+
+
+    public Hobby[] getHobbies() {
         return hobbies;
     }
+    
+    */
 }
