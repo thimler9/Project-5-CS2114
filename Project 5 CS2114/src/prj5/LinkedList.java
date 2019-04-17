@@ -3,107 +3,158 @@
  */
 package prj5;
 
+import java.util.Comparator;
+
 /**
  * @author Tom
- *
+ * LinkedList for the back-end of the program.
+ * Contains a private node class used as a basis for the linked list.
+ * 
+ * @param T is a generic type
  */
-public class LinkedList<T> 
-{
-    
-    private class Node<S>
-    {
-        S data;
-        Node<S> next;
-        
-        public Node(S data, Node<S> next)
-        {
+public class LinkedList<T> {
+
+    /**
+     * Support class for the LinkedList class
+     * @author Tom (thimler9)
+     *
+     * @param <T> is the same parameter as LinkedList<T>
+     */
+    private class Node<T> {
+        private T data;
+        private Node<T> next;
+
+
+        public Node(T data, Node<T> next) {
             this.data = data;
             this.next = next;
         }
-        
-        public Node<S> getNext()
-        {
+
+
+        public Node<T> getNext() {
             return next;
         }
-        
-        public S getData()
-        {
+
+
+        public T getData() {
             return data;
         }
-        
-        public void setData(S data)
-        {
+
+
+        public void setData(T data) {
             this.data = data;
         }
-        
-        public void setNext(Node<S> next)
-        {
+
+
+        public void setNext(Node<T> next) {
             this.next = next;
         }
     }
-    
-    Node<T> headNode;
-    int size;
-    
-    public LinkedList()
-    {
+
+    private Node<T> headNode; //The head node of list
+    private int size; //The number of elements in the list
+
+    /**
+     * Constructor for LinkedList
+     * Creates a sentinel node headnode and sets the size to 0
+     */
+    public LinkedList() {
         headNode = new Node(null, null);
         size = 0;
     }
+
+    /**
+     * Gets the element at the index inputed
+     * 
+     * @param index the index of the wanted item
+     * @return the item at that index
+     */
+    public T get(int index) {
+        Node<T> header = headNode;
+
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        for (int i = 0; i < index; i++) {
+            header = header.getNext();
+        }
+        
+        return header.getNext().getData();
+    }
+
+    /**
+     * Returns the size of the linkedList
+     * @return the size of the linkedList
+     */
+    public int getSize()
+    {
+        return size;
+    }
     
-    public T get(int index)
+    /**
+     * Adds a new piece of data at the end of the list
+     * 
+     * @param data the data being added
+     */
+    public void add(T data) {
+        Node<T> newNode = new Node<T>(data, null);
+        Node<T> currentNode = headNode;
+        if (size == 0)
+        {
+            headNode.setNext(newNode);
+        }
+        for (int i = 0; i < size + 1; i++)
+        {
+            if (currentNode.getNext() == null)
+            {
+                currentNode.setNext(newNode);
+            }
+            currentNode = currentNode.getNext();
+        }
+        size++;
+    }
+
+    /**
+     * Removes a given at the given index
+     * 
+     * @param index of element being removed
+     * @return true if the element was removed false if it is not in the list
+     */
+    public T remove(int index) 
     {
         Node<T> header = headNode;
+        T item = null;
         
-        if (index > size)
+        if (index > size || index < 0) 
         {
             throw new IndexOutOfBoundsException();
         }
         
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i <= index; i++) 
         {
-            if (i == index)
+            if (i == index) 
             {
-                return header.getNext().getData();
+                item = header.getNext().getData();
+                header.setNext(header.getNext().getNext());
+                size--;
             }
-            else
-            {
-                header = header.getNext();
-            }
+            header = header.getNext();
         }
         
-        return null;
+        return item;
     }
-    
-    public void add(T data)
-    {
-        Node<T> newNode = new Node<T>(data, headNode.getNext());
-        headNode.setNext(newNode);
-        size++;
-    }
-    
-    public boolean remove(int index)
-    {
+
+    /**
+     * Removes the first instance of a given object
+     * 
+     * @param object that is being removed
+     * @return true if the element was removed false if it is not in the list
+     */
+    public boolean remove(T object) {
         Node<T> header = headNode;
-        for (int i = 0; i < index; i++)
-        {
-            if (i == index)
-            {
-                header.getNext().setNext(header.getNext().getNext());
-                size--;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean remove(T object)
-    {
-        Node<T> header = headNode;
-        while (header.getNext() != null)
-        {
-            if (header.getNext().getData() == object)
-            {
+        while (header.getNext() != null) {
+            if (header.getNext().getData() == object) {
                 header.setNext(header.getNext().getNext());
                 size--;
                 return true;
@@ -112,28 +163,37 @@ public class LinkedList<T>
         }
         return false;
     }
-    
-    public boolean isEmpty()
-    {
+
+    /**
+     * Checks to see if the list is empty
+     * 
+     * @return true if empty, false if not empty
+     */
+    public boolean isEmpty() {
         return size == 0;
     }
-    
-    public void sort()
+
+    /**
+     * Sorts the list depending on the object
+     * Uses that objects comparator to sort
+     */
+    public void sort() 
     {
-        
+
     }
-    
-    public LinkedList<T> clone()
-    {
+
+    /**
+     * Creates an identical list of the same elements
+     */
+    public LinkedList<T> clone() {
         LinkedList<T> clone = new LinkedList<T>();
         Node<T> header = headNode;
-        
-        while (header.next != null)
-        {
+
+        while (header.next != null) {
             clone.add(header.getNext().getData());
             header = header.getNext();
         }
-        
+
         return clone;
     }
 }
