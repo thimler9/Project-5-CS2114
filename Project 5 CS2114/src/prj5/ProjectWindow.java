@@ -3,7 +3,9 @@
  */
 package prj5;
 
+import java.awt.Color;
 import CS2114.Button;
+import CS2114.Shape;
 import CS2114.Window;
 import CS2114.WindowSide;
 
@@ -21,6 +23,7 @@ public class ProjectWindow
     boolean[][] responseData;
     LinkedList<Chart> chargs;
     private Window window;
+    private Shape legend;
     
     public ProjectWindow()
     {
@@ -56,6 +59,13 @@ public class ProjectWindow
         major.onClick(this, "clickedMajor");
         region.onClick(this, "clickedRegion");
         quit.onClick(this, "clickedQuit");
+        
+        
+        
+        legend = new Shape(820, 325, 135, 180);
+        legend.setBackgroundColor(Color.WHITE);
+        legend.setForegroundColor(Color.BLACK);
+        window.addShape(legend);
     }
     
     public void clickedHobby(Button hobby)
