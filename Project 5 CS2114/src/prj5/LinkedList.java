@@ -12,7 +12,7 @@ import java.util.Comparator;
  * 
  * @param T is a generic type
  */
-public class LinkedList<T> {
+public class LinkedList<T>{ 
 
     /**
      * Support class for the LinkedList class
