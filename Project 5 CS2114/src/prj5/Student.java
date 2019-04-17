@@ -3,7 +3,7 @@ package prj5;
 /**
  * 
  * @author Eriq Taing (eriq12)
- *
+ * @version 4/17/2019
  */
 public class Student {
     private int index;
@@ -47,5 +47,59 @@ public class Student {
      */
     public int getIndex() {
         return index;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @return date
+     */
+    public String getDate() {
+        return date;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @return hobby
+     */
+    public Hobby getHobby() {
+        return hobby;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @return major
+     */
+    public Major getMajor() {
+        return major;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @return region
+     */
+    public Region getRegion() {
+        return region;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @param songIndex
+     *            gets responses for song
+     * @param whatResponse
+     *            which type of response wanted (0 for heard, 1 for liked)
+     * @return boolean for response
+     */
+    public boolean getResponse(int songIndex, int whatResponse) {
+        return responses[songIndex][whatResponse];
     }
 }
