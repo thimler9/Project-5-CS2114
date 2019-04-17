@@ -15,8 +15,9 @@ public class Song {
     private int releaseYear;
     private String genre;
     private int index;
-
-
+    private int[][] hobbyInfo;
+    private int[][] majorInfo;
+    private int[][] stateInfo;
     public Song() {
 
     }
@@ -44,6 +45,35 @@ public class Song {
 
     public int getIndex() {
         return index;
+    }
+    
+    /**
+     * This method gets the hobby information
+     * 
+     * @return the information of the hobby.
+     */
+    public int[][] getHobbyInfo() {
+        return hobbyInfo;
+    }
+
+
+    /**
+     * This method gets the major information.
+     * 
+     * @return the information of the major.
+     */
+    public int[][] getMajorInfo() {
+        return majorInfo;
+    }
+
+
+    /**
+     * This method gets the state information.
+     * 
+     * @return the information of each state.
+     */
+    public int[][] getStateInfo() {
+        return stateInfo;
     }
 
 
