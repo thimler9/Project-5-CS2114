@@ -6,18 +6,46 @@ package prj5;
  *
  */
 public class Student {
-    private String name;
+    private int index;
+    private String date;
     private Hobby hobby;
     private Major major;
     private Region region;
     // 2d, first index is song, second index is heard, then liked
     private boolean[][] responses;
-    
-    
-    public Student(String n, Hobby h, Major m, Region r, boolean[][] res){
-        name = n;
+
+
+    /**
+     * constructor
+     * 
+     * @param i
+     *            index
+     * @param d
+     *            date
+     * @param h
+     *            hobby
+     * @param m
+     *            major
+     * @param r
+     *            region
+     * @param res
+     *            responses for each song
+     */
+    public Student(int i, String d, Major m, Region r, Hobby h, boolean[][] res) {
+        index = i;
+        date = d;
         hobby = h;
         region = r;
         responses = res;
+    }
+
+
+    /**
+     * getter
+     * 
+     * @return index
+     */
+    public int getIndex() {
+        return index;
     }
 }
