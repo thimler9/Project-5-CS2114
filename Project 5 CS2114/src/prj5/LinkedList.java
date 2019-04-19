@@ -20,6 +20,7 @@ public class LinkedList<T>{
      *
      * @param <T> is the same parameter as LinkedList<T>
      */
+    @SuppressWarnings("hiding")
     private class Node<T> {
         private T data;
         private Node<T> next;
@@ -41,11 +42,6 @@ public class LinkedList<T>{
         }
 
 
-        public void setData(T data) {
-            this.data = data;
-        }
-
-
         public void setNext(Node<T> next) {
             this.next = next;
         }
@@ -59,7 +55,7 @@ public class LinkedList<T>{
      * Creates a sentinel node headnode and sets the size to 0
      */
     public LinkedList() {
-        headNode = new Node(null, null);
+        headNode = new Node<T>(null, null);
         size = 0;
     }
 
