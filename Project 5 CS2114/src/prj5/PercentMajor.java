@@ -15,10 +15,9 @@ import java.util.Comparator;
  * Add the class description here.
  *
  * @author Pranav Sharma pranavsharma
- * @version 04/17/2019
+ * @version 04/20/2019
  */
-public class PercentHobby implements Comparator<String> {
-
+public class PercentMajor implements Comparator<String>{
     private int[][] heard;
     private int[][] liked;
 
@@ -28,7 +27,7 @@ public class PercentHobby implements Comparator<String> {
      * new a HobbyCount
      * 
      */
-    public PercentHobby() {
+    public PercentMajor() {
         heard = new int[4][2];
         liked = new int[4][2];
     }
@@ -38,53 +37,53 @@ public class PercentHobby implements Comparator<String> {
     /**
      * Increment the results
      * 
-     * @param hobby
-     *            represent the hobby of a student
+     * @param major
+     *            represent the major of a student
      * @param answerHeard
      *            whether that student has heard this song or not
      * @param answerLike
      *            whether that student likes that song or not
      */
-    public void increment(String hobby, String hasHeard, String hasLiked) {
-        heard(hobby, hasHeard);
-        liked(hobby, hasLiked);
+    public void increment(String major, String hasHeard, String hasLiked) {
+        heard(major, hasHeard);
+        liked(major, hasLiked);
     }
 
 
     /**
      * increase the heard part
      * 
-     * @param hobby
-     *            represents the hobby of the student
+     * @param major
+     *            represents the major of the student
      * @param answer
      *            answer to like or not
      */
-    private void heard(String hobby, String answer) {
+    private void heard(String major, String answer) {
         if (answer == "Yes") {
-            if (hobby == "reading") {
+            if (major == "Computer Science") {
                 heard[0][1]++;
             }
-            else if (hobby == "art") {
+            else if (major == "Other Engineering") {
                 heard[1][1]++;
             }
-            else if (hobby == "sports") {
+            else if (major == "Math or CMDA") {
                 heard[2][1]++;
             }
-            else if (hobby == "music") {
+            else if (major == "Other") {
                 heard[3][1]++;
             }
         }
         else if (answer == "No") {
-            if (hobby == "reading") {
+            if (major == "Computer Sceince") {
                 heard[0][0]++;
             }
-            else if (hobby == "art") {
+            else if (major == "Other Engineering") {
                 heard[1][0]++;
             }
-            else if (hobby == "sports") {
+            else if (major == "Math or CMDA") {
                 heard[2][0]++;
             }
-            else if (hobby == "music") {
+            else if (major == "Other") {
                 heard[3][0]++;
             }
         }
@@ -100,35 +99,36 @@ public class PercentHobby implements Comparator<String> {
      * @param answer
      *            answer to like or not
      */
-    private void liked(String hobby, String answer) {
+    private void liked(String major, String answer) {
         if (answer == "Yes") {
-            if (hobby == "reading") {
-                liked[0][1]++;
+            if (major == "Computer Science") {
+                heard[0][1]++;
             }
-            else if (hobby == "art") {
-                liked[1][1]++;
+            else if (major == "Other Engineering") {
+                heard[1][1]++;
             }
-            else if (hobby == "sports") {
-                liked[2][1]++;
+            else if (major == "Math or CMDA") {
+                heard[2][1]++;
             }
-            else if (hobby == "music") {
-                liked[3][1]++;
+            else if (major == "Other") {
+                heard[3][1]++;
             }
         }
         else if (answer == "No") {
-            if (hobby == "reading") {
-                liked[0][0]++;
+            if (major == "Computer Sceince") {
+                heard[0][0]++;
             }
-            else if (hobby == "art") {
-                liked[1][0]++;
+            else if (major == "Other Engineering") {
+                heard[1][0]++;
             }
-            else if (hobby == "sports") {
-                liked[2][0]++;
+            else if (major == "Math or CMDA") {
+                heard[2][0]++;
             }
-            else if (hobby == "music") {
-                liked[3][0]++;
+            else if (major == "Other") {
+                heard[3][0]++;
             }
         }
+
     }
 
 
@@ -175,7 +175,6 @@ public class PercentHobby implements Comparator<String> {
      * 
      * @return 0, negative, or positive value int
      */
-    @Override
     public int compare(String str1, String str2) {
         return str1.compareTo(str2);
     }
