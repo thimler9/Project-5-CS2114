@@ -18,8 +18,26 @@ public class Song {
     private int[][] hobbyInfo;
     private int[][] majorInfo;
     private int[][] stateInfo;
-    public Song() {
 
+
+    public Song(
+        String name,
+        String artist,
+        int year,
+        String genre,
+        int index,
+        int[][] hobby,
+        int[][] major,
+        int[][] state) {
+
+        this.name = name;
+        this.artist = artist;
+        releaseYear = year;
+        this.genre = genre;
+        this.index = index;
+        hobbyInfo = hobby;
+        majorInfo = major;
+        stateInfo = state;
     }
 
 
@@ -46,7 +64,8 @@ public class Song {
     public int getIndex() {
         return index;
     }
-    
+
+
     /**
      * This method gets the hobby information
      * 
@@ -74,6 +93,30 @@ public class Song {
      */
     public int[][] getStateInfo() {
         return stateInfo;
+    }
+
+
+    public int getCompareByArtist(Song song1, Song song2) {
+        CompareByArtist compare = new CompareByArtist();
+        return compare.compare(song1, song2);
+    }
+
+
+    public int getCompareByDate(Song song1, Song song2) {
+        CompareByDate compare = new CompareByDate();
+        return compare.compare(song1, song2);
+    }
+
+
+    public int getCompareByGenre(Song song1, Song song2) {
+        CompareByGenre compare = new CompareByGenre();
+        return compare.compare(song1, song2);
+    }
+
+
+    public int getCompareBySongTitle(Song song1, Song song2) {
+        CompareBySongTitle compare = new CompareBySongTitle();
+        return compare.compare(song1, song2);
     }
 
 
@@ -105,15 +148,15 @@ public class Song {
          */
         @Override
         public int compare(Song song1, Song song2) {
-            int date1 = Integer.valueOf(song1.getYear());
-            int date2 = Integer.valueOf(song2.getYear());
+            int date1 = song1.getYear();
+            int date2 = song2.getYear();
 
             return date1 - date2;
         }
     }
 
 
-    private class SortByGenre implements Comparator<Song> {
+    private class CompareByGenre implements Comparator<Song> {
 
         /**
          * This method compares the songs by genre alphabetically.
@@ -131,7 +174,7 @@ public class Song {
     }
 
 
-    private class SortBySongTitle implements Comparator<Song> {
+    private class CompareBySongTitle implements Comparator<Song> {
 
         /**
          * This method compares the songs by title alphabetically.

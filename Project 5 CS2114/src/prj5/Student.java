@@ -35,6 +35,7 @@ public class Student {
         index = i;
         date = d;
         hobby = h;
+        major = m;
         region = r;
         responses = res;
     }
