@@ -9,5 +9,5 @@ package prj5;
  */
 public enum Hobby 
 {
-    READ, ART, SPORT, MUSIC;
+    READING, ART, SPORTS, MUSIC;
 }
