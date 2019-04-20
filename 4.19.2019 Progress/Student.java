@@ -37,6 +37,7 @@ public class Student {
         hobby = h;
         region = r;
         responses = res;
+        major = m;
     }
 
 
