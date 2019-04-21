@@ -135,7 +135,7 @@ public class LinkedList<T> {
      * 
      * @return size
      */
-    public int size() {
+    public int getSize() {
         return size;
     }
 
@@ -240,7 +240,7 @@ public class LinkedList<T> {
      *            to compare objects by
      */
     public void sort(Comparator<T> comparor) {
-        int originalSize = size();
+        int originalSize = size;
         Node<T> newHead = findNextNode(comparor);
         Node<T> header = newHead;
         while (!isEmpty()) {
