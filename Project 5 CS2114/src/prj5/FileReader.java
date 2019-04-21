@@ -142,7 +142,7 @@ public class FileReader {
     }
     
     public int numOfSongs(){
-        return songs.size();
+        return songs.getSize();
     }
     
     /**
