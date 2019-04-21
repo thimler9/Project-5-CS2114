@@ -15,9 +15,6 @@ public class Song {
     private int releaseYear;
     private String genre;
     private int index;
-    // 4 x 4 1st is type of enum, 2nd is the following:
-    //0 - heard 1 - answered
-    //1 - liked 2 - answered
 
 
     public Song(
