@@ -7,149 +7,94 @@ import java.util.Comparator;
 
 /**
  * @author Tom
- * @author Eriq Taing (eriq12)
- * @version 4/20/2019
- *
- *          Creates a linkedList
+ *         LinkedList for the back-end of the program.
+ *         Contains a private node class used as a basis for the linked list.
+ * 
+ * @param T
+ *            is a generic type
  */
 public class LinkedList<T> {
 
-    private class Node<S> {
-        private S data;
-        private Node<S> next;
-        private Node<S> prev;
-
-
-        /**
-         * constructor
-         * 
-         * @param d
-         *            data
-         */
-        public Node(S d) {
-            data = d;
-            next = null;
-            prev = null;
-        }
-
+    /**
+     * Support class for the LinkedList class
+     * 
+     * @author Tom (thimler9)
+     *
+     * @param <T>
+     *            is the same parameter as LinkedList<T>
+     */
+    @SuppressWarnings("hiding")
+    private class Node<T> {
+        private T data;
+        private Node<T> next;
 
         /**
-         * returns next node
-         * 
-         * @return next node
+         * constructor of node
+         * @param data data inside node
+         * @param next next node of created one
          */
-        public Node<S> getNext() {
-            return next;
-        }
-
-
-        /**
-         * returns previous node
-         * 
-         * @return previous node
-         */
-        public Node<S> getPrev() {
-            return prev;
-        }
-
-
-        /**
-         * getter
-         * 
-         * @return data of node
-         */
-        public S getData() {
-            return data;
-        }
-
-
-        private void linkWith(Node<S> n) {
-            next = n;
-            n.next = this;
-        }
-
-
-        /**
-         * set next node of current
-         * 
-         * @param next
-         *            node to set to
-         */
-        public void setNext(Node<S> next) {
+        public Node(T data, Node<T> next) {
+            this.data = data;
             this.next = next;
         }
 
-
-        private void insertAfter(Node<S> n) {
-            Node<S> temp = n.next;
-            n.linkWith(this);
-            linkWith(temp);
-            size++;
+        /**
+         * gets next node
+         * @return next node
+         */
+        public Node<T> getNext() {
+            return next;
         }
 
-
         /**
-         * returns if this
-         * 
-         * @return if the next node is not the tail
+         * gets data of current node
+         * @return data
          */
-        public boolean hasNext() {
-            return next != tail;
+        public T getData() {
+            return data;
         }
 
+        /**
+         * sets next node of current
+         * @param next next node to set
+         */
+        public void setNext(Node<T> next) {
+            this.next = next;
+        }
 
         /**
-         * removes node from the list
-         * 
-         * @return the node being removed
+         * toString method
+         * @return list in an array like form
          */
-        public Node<S> remove() {
-            prev.linkWith(next);
-            return this;
+        @Override
+        public String toString() {
+            return data.toString();
         }
     }
 
-    Node<T> head;
-    Node<T> tail;
-    int size;
+    private Node<T> headNode; // The head node of list
+    private int size; // The number of elements in the list
 
 
     /**
-     * constructor
+     * Constructor for LinkedList
+     * Creates a sentinel node headnode and sets the size to 0
      */
     public LinkedList() {
-        head = new Node<T>(null);
-        tail = new Node<T>(null);
-        init();
-    }
-
-
-    private void init() {
+        headNode = new Node<T>(null, null);
         size = 0;
-        head.linkWith(tail);
     }
 
 
     /**
-     * getter
-     * 
-     * @return size
-     */
-    public int getSize() {
-        return size;
-    }
-
-
-    /**
-     * getter of an element
+     * Gets the element at the index inputed
      * 
      * @param index
-     *            of where the element is
-     * @return data at index
-     * @throws IndexOutOfBoundsException
+     *            the index of the wanted item
+     * @return the item at that index
      */
     public T get(int index) {
-        Node<T> header = head;
+        Node<T> header = headNode;
 
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
@@ -164,54 +109,75 @@ public class LinkedList<T> {
 
 
     /**
-     * adds to end of list
+     * Returns the size of the linkedList
      * 
-     * @param data
-     *            to add to the end
-     * @return index of the element
+     * @return the size of the linkedList
      */
-    public int add(T data) {
-        Node<T> newNode = new Node<T>(data);
-        tail.getPrev().insertAfter(newNode);
-        return size++;
+    public int getSize() {
+        return size;
     }
 
 
     /**
-     * removes element at index
+     * Adds a new piece of data at the end of the list
+     * 
+     * @param data
+     *            the data being added
+     */
+    public void add(T data) {
+        Node<T> newNode = new Node<T>(data, null);
+        Node<T> currentNode = headNode;
+        if (size == 0) {
+            headNode.setNext(newNode);
+        }
+        for (int i = 0; i < size + 1; i++) {
+            if (currentNode.getNext() == null) {
+                currentNode.setNext(newNode);
+            }
+            currentNode = currentNode.getNext();
+        }
+        size++;
+    }
+
+
+    /**
+     * Removes a given at the given index
      * 
      * @param index
-     *            where to remove
-     * @return if element at index is removed
-     * @throws IndexOutOfBoundsException
+     *            of element being removed
+     * @return true if the element was removed false if it is not in the list
      */
-    public boolean remove(int index) {
+    public T remove(int index) {
+        Node<T> header = headNode;
+        T item = null;
+
         if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> header = head;
-        for (int i = 0; i <= index && header != tail; i++) {
+
+        for (int i = 0; i <= index; i++) {
             if (i == index) {
-                header.remove().getData();
+                item = header.getNext().getData();
+                header.setNext(header.getNext().getNext());
                 size--;
-                return true;
             }
             header = header.getNext();
         }
-        return false;
+
+        return item;
     }
 
 
     /**
-     * removes specified object
+     * Removes the first instance of a given object
      * 
      * @param object
-     *            target to be removed
-     * @return if object was removed
+     *            that is being removed
+     * @return true if the element was removed false if it is not in the list
      */
     public boolean remove(T object) {
-        Node<T> header = head;
-        while (header.getNext() != tail) {
+        Node<T> header = headNode;
+        while (header.getNext() != null) {
             if (header.getNext().getData() == object) {
                 header.setNext(header.getNext().getNext());
                 size--;
@@ -224,9 +190,9 @@ public class LinkedList<T> {
 
 
     /**
-     * if element is empty
+     * Checks to see if the list is empty
      * 
-     * @return if size is 0
+     * @return true if empty, false if not empty
      */
     public boolean isEmpty() {
         return size == 0;
@@ -234,53 +200,81 @@ public class LinkedList<T> {
 
 
     /**
-     * sorts list
+     * Sorts the list depending on the object
+     * Uses that objects comparator to sort
      * 
-     * @param comparor
-     *            to compare objects by
+     * @param comp
+     *            Comparator for sorting
      */
-    public void sort(Comparator<T> comparor) {
-        int originalSize = size;
-        Node<T> newHead = findNextNode(comparor);
-        Node<T> header = newHead;
-        while (!isEmpty()) {
-            findNextNode(comparor).insertAfter(header);
-            header = header.next;
+    public void sort(Comparator<T> comp) {
+        int original = size;
+        T obj = getNextObj(comp);
+        Node<T> temp = new Node<T>(obj, null);
+        Node<T> pointer = temp;
+        while (size != 0) {
+            Node<T> anotherOne = new Node<T>(getNextObj(comp), null);
+            pointer.setNext(anotherOne);
+            pointer = anotherOne;
         }
-        head.linkWith(newHead);
-        header.linkWith(tail);
-        size = originalSize;
+        size = original;
+        headNode.setNext(temp);
     }
 
 
     /**
-     * Helper method for the sort
+     * helper method
+     * 
+     * @param comp
+     *            Comparator for sorting
      */
-    private Node<T> findNextNode(Comparator<T> comparor) {
-        Node<T> result = head.next;
-        for (Node<T> header = result; header != tail; header = header.next) {
-            if (comparor.compare(header.data, result.data) < 0) {
-                result = header;
+    private T getNextObj(Comparator<T> comp) {
+        Node<T> pointer = headNode.getNext();
+        Node<T> beforeResult = headNode;
+        while (pointer.getNext() != null) {
+            T c1 = pointer.getNext().getData();
+            if (comp.compare(c1, beforeResult.getNext().getData()) < 0) {
+                beforeResult = pointer;
             }
+            pointer = pointer.getNext();
         }
-        return result.remove();
+        Node<T> result = beforeResult.getNext();
+        beforeResult.setNext(result.getNext());
+        size--;
+        return result.getData();
     }
 
 
     /**
-     * clones list
-     * 
-     * @return copy of the current list
+     * Creates an identical list of the same elements
      */
     public LinkedList<T> clone() {
         LinkedList<T> clone = new LinkedList<T>();
-        Node<T> header = head;
+        Node<T> header = headNode;
 
-        while (header.hasNext()) {
+        while (header.next != null) {
+            clone.add(header.getNext().getData());
             header = header.getNext();
-            clone.add(header.getData());
         }
 
         return clone;
+    }
+
+    /**
+     * toString method
+     * @return list in an array like form
+     */
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("[");
+        Node<T> pointer = headNode.getNext();
+        while (pointer != null) {
+            result.append(pointer.toString());
+            if(pointer.getNext() != null){
+                result.append(", ");
+            }
+            pointer = pointer.getNext();
+        }
+        result.append("]");
+        return result.toString();
     }
 }
