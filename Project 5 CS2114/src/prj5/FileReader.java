@@ -120,11 +120,9 @@ public class FileReader {
         LinkedList<Song> result = new LinkedList<Song>();
         Scanner sc = new Scanner(new File(fileName));
         sc.nextLine();
-        
+        int index = 0;
         while (sc.hasNextLine()) {
-            
             String[] data = sc.nextLine().split(",");
-            int index = 0;
             Song newSong = new Song(data[0], data[1], 
                 Integer.valueOf(data[2]), data[3], index);
             result.add(newSong);
