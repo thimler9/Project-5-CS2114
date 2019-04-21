@@ -5,6 +5,7 @@ package prj5;
 
 
 import java.awt.Color;
+import java.util.Random;
 import CS2114.Shape;
 import CS2114.SquareShape;
 import CS2114.TextShape;
@@ -16,13 +17,13 @@ import CS2114.Window;
  */
 public class Chart 
 {   
-    private final int xSpacer = 250;
-    private final int starterXInc = 130;
+    private final int xSpacer = 300;
+    private final int starterXInc = 150;
 
-    private final int ySpacer = 130;
-    private final int starterYInc = 120;
-    private final int yArtistSpacer = 10;
-    private final int yBlackBarSpace = 30;
+    private final int ySpacer = 150;
+    private final int starterYInc = 125;
+    private final int yArtistSpacer = 15;
+    private final int yBlackBarSpace = 35;
 
     private Shape bar1Likes;
     private Shape bar2Likes;
@@ -37,7 +38,7 @@ public class Chart
     private TextShape title;
     private TextShape artist;
 
-    private final int barSpacer = 10;
+    private final int barSpacer = 15;
 
     private Shape blackBar;
 
@@ -94,7 +95,6 @@ public class Chart
         System.out.println(l[2]);
         System.out.println(l[3]);*/
 
-
         title = new TextShape(xpos * xSpacer - starterXInc, ypos
             * ySpacer - starterYInc, song.getSong());
         int moveXt = title.getWidth() / 2;
@@ -114,8 +114,20 @@ public class Chart
         blackBar = new Shape(blackBarX, blackBarY, 5, 60, Color.BLACK);
         window.addShape(blackBar);
         window.moveToFront(blackBar);
+        
+        for (int i = 0; i <= 3; i++) {
+            Random r = new Random();
+            int c1 = r.nextInt(255);
+            int c2 = r.nextInt(255);
+            int c3 = r.nextInt(255);
+            int barLx = xpos * xSpacer - starterXInc + 5;
+            int barLy = ypos * ySpacer - starterYInc + yBlackBarSpace + barSpacer * i;
+            bar1Likes = new Shape(barLx, barLy, l[i], 15,
+                new Color(c1, c2, c3));
+            window.addShape(bar1Likes);
+        }
 
-        int bar1Lx = xpos * xSpacer - starterXInc + 5;
+        /*int bar1Lx = xpos * xSpacer - starterXInc + 5;
         int bar1Ly = ypos * ySpacer - starterYInc + yBlackBarSpace;
         bar1Likes = new Shape(bar1Lx, bar1Ly, l[0], 15,
             Color.MAGENTA);
@@ -140,8 +152,21 @@ public class Chart
         bar4Likes = new Shape(bar4Lx, bar4Ly, l[3], 15,
             Color.GREEN);
         window.addShape(bar4Likes);
+        */
+        
+        for (int i = 0; i <= 3; i++) {
+            Random r = new Random();
+            int c1 = r.nextInt(255);
+            int c2 = r.nextInt(255);
+            int c3 = r.nextInt(255);
+            int barHx = xpos * xSpacer - starterXInc - h[i];
+            int barHy = ypos * ySpacer - starterYInc + yBlackBarSpace + barSpacer * i;
+            bar1Heard = new Shape(barHx, barHy, h[i], 15,
+                new Color(c2, c2, c3));
+            window.addShape(bar1Heard);
+        }
 
-        int bar1Hx = xpos * xSpacer - starterXInc - h[0];
+        /*int bar1Hx = xpos * xSpacer - starterXInc - h[0];
         int bar1Hy = ypos * ySpacer - starterYInc + yBlackBarSpace;
         bar1Heard = new Shape(bar1Hx, bar1Hy, h[0], 15,
             Color.MAGENTA);
@@ -166,12 +191,13 @@ public class Chart
         bar4Heard = new Shape(bar4Hx, bar4Hy, h[3], 15,
             Color.GREEN);
         window.addShape(bar4Heard);
+        */
 
     }
     
     public void removeAll()
     {
-        window.removeShape(bar1Likes);
+        /*window.removeShape(bar1Likes);
         window.removeShape(bar2Likes);
         window.removeShape(bar3Likes);
         window.removeShape(bar4Likes);
@@ -184,7 +210,8 @@ public class Chart
         window.removeShape(title);
         window.removeShape(artist);
         window.removeShape(blackBar);
-
+        */
         
+        window.removeAllShapes();     
     }
 }
