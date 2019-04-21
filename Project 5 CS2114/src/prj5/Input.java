@@ -9,7 +9,9 @@ package prj5;
  * @version 4/20/2019
  */
 public class Input {
-
+    /**
+     * main method where files are read and things are made
+     */
     public static void main(String[] args) {
         FileReader reader = null;
         if (args.length == 2) {
@@ -21,7 +23,7 @@ public class Input {
             }
         }
         if (reader != null) {
-            
+
         }
     }
 }

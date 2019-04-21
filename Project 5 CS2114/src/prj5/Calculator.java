@@ -23,7 +23,6 @@ public class Calculator implements Comparator<String> {
     private int[][] liked;
 
 
-    // ~ Constructor
     /**
      * new a HobbyCount
      * 
@@ -34,7 +33,6 @@ public class Calculator implements Comparator<String> {
     }
 
 
-    // ~ Methods
     /**
      * Increment the results
      * 
@@ -145,16 +143,6 @@ public class Calculator implements Comparator<String> {
             result[i] = (int) ((heards / all) * 100);
         }
         return result;
-        /*result[0] = (int)((1.0 * heard[0][1] / (heard[0][0] + heard[0][1]))
-            * 100);
-        result[1] = (int)((1.0 * heard[1][1] / (heard[1][0] + heard[1][1]))
-            * 100);
-        result[2] = (int)((1.0 * heard[2][1] / (heard[2][0] + heard[2][1]))
-            * 100);
-        result[3] = (int)((1.0 * heard[3][1] / (heard[3][0] + heard[3][1]))
-            * 100);3
-        return result;
-        */
     }
 
 
@@ -171,16 +159,7 @@ public class Calculator implements Comparator<String> {
             result[i] = (int) ((like / all) * 100);
         }
         return result;
-        /*result[0] = (int)((1.0 * liked[0][1] / (liked[0][0] + liked[0][1]))
-            * 100);
-        result[1] = (int)((1.0 * liked[1][1] / (liked[1][0] + liked[1][1]))
-            * 100);
-        result[2] = (int)((1.0 * liked[2][1] / (liked[2][0] + liked[2][1]))
-            * 100);
-        result[3] = (int)((1.0 * liked[3][1] / (liked[3][0] + liked[3][1]))
-            * 100);
-        return result;
-        */
+      
     }
 
 

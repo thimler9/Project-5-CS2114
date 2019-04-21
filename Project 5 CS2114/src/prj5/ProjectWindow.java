@@ -13,8 +13,7 @@ import CS2114.WindowSide;
  * @author Tom
  *
  */
-public class ProjectWindow 
-{
+public class ProjectWindow {
     LinkedList<Song> songs;
     String[] studentNames;
     Major[] studentMajors;
@@ -24,9 +23,13 @@ public class ProjectWindow
     LinkedList<Chart> chargs;
     private Window window;
     private Shape legend;
-    
-    public ProjectWindow()
-    {
+
+
+    /**
+     * creates a new project window
+     * 
+     */
+    public ProjectWindow() {
         window = new Window();
         window.setTitle("Project 5");
         Button prev = new Button("<- Prev");
@@ -59,67 +62,128 @@ public class ProjectWindow
         major.onClick(this, "clickedMajor");
         region.onClick(this, "clickedRegion");
         quit.onClick(this, "clickedQuit");
-        
-        
-        
+
         legend = new Shape(820, 325, 135, 180);
         legend.setBackgroundColor(Color.WHITE);
         legend.setForegroundColor(Color.BLACK);
         window.addShape(legend);
     }
-    
-    public void clickedHobby(Button hobby)
-    {
-        
+
+
+    /**
+     * action when hobby button is clicked
+     * 
+     * @param hobby
+     *            is the hobby button
+     */
+    public void clickedHobby(Button hobby) {
+
     }
-    
-    public void clickedMajor(Button major)
-    {
-        
+
+
+    /**
+     * action when major button is clicked
+     * 
+     * @param major
+     *            is the hobby button
+     */
+    public void clickedMajor(Button major) {
+
     }
-    
-    public void clickedRegion(Button region)
-    {
-        
+
+
+    /**
+     * action when region button is clicked
+     * 
+     * @param region
+     *            is the hobby button
+     */
+    public void clickedRegion(Button region) {
+
     }
-    
-    public void clickedArtist(Button art)
-    {
-        
+
+
+    /**
+     * action when art button is clicked
+     * 
+     * @param art
+     *            is the hobby button
+     */
+    public void clickedArtist(Button art) {
+
     }
-    
-    public void clickedSong(Button song)
-    {
-        
+
+
+    /**
+     * action when song button is clicked
+     * 
+     * @param song
+     *            is the hobby button
+     */
+    public void clickedSong(Button song) {
+
     }
-    
-    public void clickedYear(Button year)
-    {
-        
+
+
+    /**
+     * action when year button is clicked
+     * 
+     * @param year
+     *            is the hobby button
+     */
+    public void clickedYear(Button year) {
+
     }
-    
-    public void clickedGenre(Button genre)
-    {
-        
+
+
+    /**
+     * action when genre button is clicked
+     * 
+     * @param genre
+     *            is the hobby button
+     */
+    public void clickedGenre(Button genre) {
+
     }
-    
-    public void clickedPrev(Button prev)
-    {
-        
+
+
+    /**
+     * action when prev button is clicked
+     * 
+     * @param prev
+     *            is the hobby button
+     */
+    public void clickedPrev(Button prev) {
+
     }
-    
-    public void clickedQuit(Button quit)
-    {
+
+
+    /**
+     * action when quit button is clicked
+     * 
+     * @param quit
+     *            is the hobby button
+     */
+    public void clickedQuit(Button quit) {
         System.exit(0);
     }
-    
-    public void clickedNext(Button next)
-    {
-        
+
+
+    /**
+     * action when next button is clicked
+     * 
+     * @param next
+     *            is the hobby button
+     */
+    public void clickedNext(Button next) {
+
     }
-    
-    public void makeLengend()
-    {
-        
+
+
+    /**
+     * creates legend
+     */
+    public void makeLengend() {
+
     }
 }

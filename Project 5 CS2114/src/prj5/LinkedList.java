@@ -10,7 +10,7 @@ import java.util.Comparator;
  * @author Eriq Taing (eriq12)
  * @version 4/20/2019
  *
- * Creates a linkedList
+ *          Creates a linkedList
  */
 public class LinkedList<T> {
 
@@ -251,9 +251,10 @@ public class LinkedList<T> {
         size = originalSize;
     }
 
+
     /**
-    * Helper method for the sort
-    */
+     * Helper method for the sort
+     */
     private Node<T> findNextNode(Comparator<T> comparor) {
         Node<T> result = head.next;
         for (Node<T> header = result; header != tail; header = header.next) {
@@ -264,14 +265,16 @@ public class LinkedList<T> {
         return result.remove();
     }
 
+
     /**
      * clones list
+     * 
      * @return copy of the current list
      */
     public LinkedList<T> clone() {
         LinkedList<T> clone = new LinkedList<T>();
         Node<T> header = head;
-        
+
         while (header.hasNext()) {
             header = header.getNext();
             clone.add(header.getData());
