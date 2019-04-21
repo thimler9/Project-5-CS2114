@@ -46,18 +46,22 @@ public class SongTest extends TestCase {
     }
 
     public void testGetCompareByArtist() {
-        assertEquals(3, song.getCompareByArtist(song, song1));
+        Comparator<Song> comparor = song.getCompareByArtist();
+        assertEquals(3, comparor.compare(song, song1));
     }
     
     public void testGetCompareByDate() {
-        assertEquals(-2, song.getCompareByDate(song, song1));
+        Comparator<Song> comparor = song.getCompareByDate();
+        assertEquals(-2, comparor.compare(song, song1));
     }
     
     public void testGetCompareByGenre() {
-        assertEquals(2, song.getCompareByGenre(song, song1));
+        Comparator<Song> comparor = song.getCompareByGenre();
+        assertEquals(2, comparor.compare(song, song1));
     }
     
     public void testGetCompareBySongTitle() {
-        assertEquals(-11, song.getCompareBySongTitle(song, song1));
+        Comparator<Song> comparor = song.getCompareByTile();
+        assertEquals(-11, comparor.compare(song, song1));
     }
 }
