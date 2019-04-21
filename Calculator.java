@@ -12,169 +12,523 @@ package prj5;
 import java.util.Comparator;
 
 /**
- * Add
+ * Calculates the percentages for each song
  *
  * @author Pranav Sharma pranavsharma
- * @version 04/20/2019
+ * @author Thomas Himler (thimler9)
+ * @version 04/17/2019
  */
-public class Calculator implements Comparator<String> {
+public class Calculator {
 
-    private int[][] like;
-    
-    private int[][] heard;
+    private LinkedList<Song> songs; //List of songs
+    private LinkedList<Student> students; //List of students
+    private LinkedList<int[][]> hobbProp; //List of hobby precentages
+    private LinkedList<int[][]> regionProp; //List of region percentages
+    private LinkedList<int[][]> majorProp; //List of major percentages
 
 
     // ~ Constructor
     /**
-     * new a HobbyCount
-     */
-    public Calculator() {
-        like = new int[4][2];
-        heard = new int[4][2];
-    }
-
-
-    // ~ Methods
-    /**
-     * Increment the results
+     * For the int[][]
+     * [0][] is the first for the enum (i.e. hobby -> reading)
+     * [1][] is the second
+     * [2][] is the third
+     * [3][] is the fourth
      * 
-     * @param hobby
-     *            represent the hobby of a student
-     * @param answerHeard
-     *            whether that student has heard this song or not
-     * @param answerLike
-     *            whether that student likes that song or not
-     */
-    public void increment(String item, String answerHeard, String answerLike) {
-        heard(item, answerHeard);
-        like(item, answerLike);
-    }
-
-
-    /**
-     * increase the heard part
+     * [][0] is for heard
+     * [][1] is for liked
      * 
-     * @param hobby
-     *            represents the hobby of the student
-     * @param answer
-     *            answer to like or not
+     * The linked lists are the prop for each song, so a given index in the
+     * list list is related to the index in the linked list "songs"
+     * 
+     * @param studentFileName is the name of student file
+     * @param songFileName is the file with the song information
      */
-    private void heard(String hobby, String answer) {
-        if (answer == "Yes") {
-            if (hobby == "reading") {
-                heard[0][1]++;
-            }
-            else if (hobby == "art") {
-                heard[1][1]++;
-            }
-            else if (hobby == "sports") {
-                heard[2][1]++;
-            }
-            else if (hobby == "music") {
-                heard[3][1]++;
-            }
-
+    public Calculator(String studentFileName, String songFileName) {
+        
+        FileReader reader = new FileReader(studentFileName, songFileName);
+        songs = reader.getSongs();
+        students = reader.getStudents();
+        hobbProp = new LinkedList<int[][]>();
+        regionProp = new LinkedList<int[][]>();
+        majorProp = new LinkedList<int[][]>();
+        
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            hobbProp.add(new int[4][2]);
+            regionProp.add(new int[4][2]);
+            majorProp.add(new int[4][2]);
         }
-        else if (answer == "No") {
-            if (hobby == "reading") {
-                heard[0][0]++;
+        
+        hobbyPercent();
+        regionPercent();
+        majorPercent();
+        
+    }
+    
+    /**
+     * Returns the list of hobby percentages
+     * @return linkedlist of hobb percentages
+     */
+    public LinkedList<int[][]> getHobbyPercent()
+    {
+        return hobbProp;
+    }
+    
+    /**
+     * Returns the list of region percentages
+     * @return the list of region percentages
+     */
+    public LinkedList<int[][]> getRegionPercent()
+    {
+        return regionProp;
+    }
+    
+    /**
+     * Returns the list of major percentages
+     * @return the list of major percentages
+     */
+    public LinkedList<int[][]> getMajorPercent()
+    {
+        return majorProp;
+    }
+    
+//-------------------------------------------------------------------
+    
+    /**
+     * Calculates the percentages for each hobby
+     */
+    private void hobbyPercent()
+    {
+        readingPercent();
+        artPercent();
+        sportsPercent();
+        musicPercent();
+    }
+    
+    /**
+     * Calculates the percentage of people who read
+     * and whether or not they like each song and have heard of it
+     */
+    private void readingPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getHobby() == Hobby.READING)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
             }
-            else if (hobby == "art") {
-                heard[1][0]++;
-            }
-            else if (hobby == "sports") {
-                heard[2][0]++;
-            }
-            else if (hobby == "music") {
-                heard[3][0]++;
-            }
+            hobbProp.get(i)[0][0] = heardCount * 100 / totalCount;
+            hobbProp.get(i)[0][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
         }
     }
-
-
+    
     /**
-     * Increase the like part.
-     * 
-     * @param hobby
-     *            the student's hobby
-     * @param answer
-     *            answer to like or not
+     * Calculates the percentage of people who like art
+     * and whether or not they like each song and have heard of it
      */
-    private void like(String hobby, String answer) {
-        if (answer == "Yes") {
-            if (hobby == "reading") {
-                heard[0][1]++;
+    private void artPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getHobby() == Hobby.ART)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
             }
-            else if (hobby == "art") {
-                heard[1][1]++;
-            }
-            else if (hobby == "sports") {
-                heard[2][1]++;
-            }
-            else if (hobby == "music") {
-                heard[3][1]++;
-            }
-
-        }
-        else if (answer == "No") {
-            if (hobby == "reading") {
-                heard[0][0]++;
-            }
-            else if (hobby == "art") {
-                heard[1][0]++;
-            }
-            else if (hobby == "sports") {
-                heard[2][0]++;
-            }
-            else if (hobby == "music") {
-                heard[3][0]++;
-            }
-
+            hobbProp.get(i)[1][0] = heardCount * 100 / totalCount;
+            hobbProp.get(i)[1][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
         }
     }
-
-
+    
     /**
-     * get the heard or not results in percentages
-     * 
-     * @return the heard or not results
+     * Calculates the percentage of people who like sports
+     * and whether or not they like each song and have heard of it
      */
-    public int[] getHeard() {
-        int[] result = new int[4];
-        result[0] = (int)((1.0 * heard[0][1] / (heard[0][0] + heard[0][1]))
-            * 100);
-        result[1] = (int)((1.0 * heard[1][1] / (heard[1][0] + heard[1][1]))
-            * 100);
-        result[2] = (int)((1.0 * heard[2][1] / (heard[2][0] + heard[2][1]))
-            * 100);
-        result[3] = (int)((1.0 * heard[3][1] / (heard[3][0] + heard[3][1]))
-            * 100);
-        return result;
+    private void sportsPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getHobby() == Hobby.SPORTS)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            hobbProp.get(i)[2][0] = heardCount * 100 / totalCount;
+            hobbProp.get(i)[2][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
     }
-
-
+    
     /**
-     * get the like or not results
-     * 
-     * @return the like or not results
+     * Calculates the percentage of people who like music
+     * and whether or not they like each song and have heard of it
      */
-    public int[] getLike() {
-        int[] result = new int[4];
-        result[0] = (int)((1.0 * like[0][1] / (like[0][0] + like[0][1])) * 100);
-        result[1] = (int)((1.0 * like[1][1] / (like[1][0] + like[1][1])) * 100);
-        result[2] = (int)((1.0 * like[2][1] / (like[2][0] + like[2][1])) * 100);
-        result[3] = (int)((1.0 * like[3][1] / (like[3][0] + like[3][1])) * 100);
-        return result;
+    private void musicPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getHobby() == Hobby.MUSIC)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            hobbProp.get(i)[3][0] = heardCount * 100 / totalCount;
+            hobbProp.get(i)[3][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
     }
-
-
+    
+    
+    
     /**
-     * Compare the two strings
-     * 
-     * @return 0, negative, or positive value int
+     * Calculates the percentages for each region
      */
-    @Override
-    public int compare(String str1, String str2) {
-        return str1.compareTo(str2);
+    private void regionPercent()
+    {
+        northeastPercent();
+        outsidePercent();
+        southeastPercent();
+        notSEorNE();
+    }
+    
+    /**
+     * Calculates the percentage of people who are from the NE
+     * and whether or not they like each song and have heard of it
+     */
+    private void northeastPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getRegion() == Region.NORTHEAST)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            regionProp.get(i)[0][0] = heardCount * 100 / totalCount;
+            regionProp.get(i)[0][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who are from outside the US
+     * and whether or not they like each song and have heard of it
+     */
+    private void outsidePercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getRegion() == 
+                    Region.OUTSIDE_OF_UNITED_STATES)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            regionProp.get(i)[1][0] = heardCount * 100 / totalCount;
+            regionProp.get(i)[1][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who are from the SE
+     * and whether or not they like each song and have heard of it
+     */
+    private void southeastPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getRegion() == Region.SOUTHEAST)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            regionProp.get(i)[2][0] = heardCount * 100 / totalCount;
+            regionProp.get(i)[2][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who live in the US but not the
+     * SE or NE
+     * and whether or not they like each song and have heard of it
+     */
+    private void notSEorNE()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getRegion() == 
+                    Region.UNITED_STATES_OTHER_THAN_SOUTHEAST_OR_NORTHWEST)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            regionProp.get(i)[0][0] = heardCount * 100 / totalCount;
+            regionProp.get(i)[0][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    
+    
+    /** 
+     * Calculates the percentages for each major
+     */
+    private void majorPercent()
+    {
+        compSciPercent();
+        mathCMDAPercent();
+        otherEnginePercent();
+        otherPercent();
+    }
+    
+    /**
+     * Calculates the percentage of people who study Comp Sci
+     * and whether or not they like each song and have heard of it
+     */
+    private void compSciPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getMajor() == Major.COMPUTER_SCIENCE)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            majorProp.get(i)[0][0] = heardCount * 100 / totalCount;
+            majorProp.get(i)[0][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who study math or CMDA
+     * and whether or not they like each song and have heard of it
+     */
+    private void mathCMDAPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getMajor() == Major.MATH_OR_CMDA)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            majorProp.get(i)[1][0] = heardCount * 100 / totalCount;
+            majorProp.get(i)[1][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who study other engineerings
+     * and whether or not they like each song and have heard of it
+     */
+    private void otherEnginePercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getMajor() == Major.OTHER_ENGINEERING)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            majorProp.get(i)[2][0] = heardCount * 100 / totalCount;
+            majorProp.get(i)[2][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
+    }
+    
+    /**
+     * Calculates the percentage of people who study 
+     * something other than the rest
+     * and whether or not they like each song and have heard of it
+     */
+    private void otherPercent()
+    {
+        int heardCount = 0;
+        int likesCount = 0;
+        int totalCount = 0;
+        for (int i = 0; i < songs.getSize(); i++)
+        {
+            for (int j = 0; j < students.getSize(); j++)
+            {
+                if (students.get(j).getMajor() == Major.OTHER)
+                {
+                    if (students.get(j).getResponse(i, 0) == Response.YES)
+                    {
+                        heardCount++;
+                    }
+                    if (students.get(j).getResponse(i, 1) == Response.YES)
+                    {
+                        likesCount++;
+                    }
+                    totalCount++;
+                }
+            }
+            majorProp.get(i)[3][0] = heardCount * 100 / totalCount;
+            majorProp.get(i)[3][1] = likesCount * 100 / totalCount;
+            heardCount = 0;
+            likesCount = 0;
+        }
     }
 }
