@@ -14,10 +14,6 @@ import java.util.Scanner;
 public class FileReader {
     private LinkedList<Song> songs;
     private LinkedList<Student> students;
-    /**
-     * amount of songs
-     */
-    public int numOfSongs;
 
     /**
      * default constructor
@@ -68,9 +64,9 @@ public class FileReader {
             Major maj = null;
             Region reg = null;
             Hobby hob = null;
-            Response[][] responses = new Response[numOfSongs][2];
+            Response[][] responses = new Response[numOfSongs()][2];
             
-            for (int i = 0; i < numOfSongs; i++) {
+            for (int i = 0; i < numOfSongs(); i++) {
                 for (int j = 0; j < 2; j++) {
                     responses[i][j] = Response.NEITHER;
                 }
@@ -132,7 +128,6 @@ public class FileReader {
             result.add(newSong);
             index++;
         }
-        numOfSongs = result.getSize();
         return result;
     }
     
@@ -144,6 +139,10 @@ public class FileReader {
     public LinkedList<Song> getSongs()
     {
         return songs;
+    }
+    
+    public int numOfSongs(){
+        return songs.size();
     }
     
     /**
