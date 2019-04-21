@@ -9,6 +9,8 @@ import java.util.Comparator;
  * @author Tom
  * @author Eriq Taing (eriq12)
  * @version 4/20/2019
+ *
+ * Creates a linkedList
  */
 public class LinkedList<T> {
 
@@ -249,7 +251,9 @@ public class LinkedList<T> {
         size = originalSize;
     }
 
-
+    /**
+    * Helper method for the sort
+    */
     private Node<T> findNextNode(Comparator<T> comparor) {
         Node<T> result = head.next;
         for (Node<T> header = result; header != tail; header = header.next) {
