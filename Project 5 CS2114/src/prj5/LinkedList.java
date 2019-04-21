@@ -247,7 +247,8 @@ public class LinkedList<T> {
             findNextNode(comparor).insertAfter(header);
             header = header.next;
         }
-        newHead.insertAfter(head);
+        head.linkWith(newHead);
+        header.linkWith(tail);
         size = originalSize;
     }
 
