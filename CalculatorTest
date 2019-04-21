@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package prj5;
+
+import student.TestCase;
+
+/**
+ * @author Tom
+ *
+ */
+public class CalculatorTest extends TestCase {
+
+    Calculator calc;
+    LinkedList<int[][]> hobbPerc;
+    LinkedList<int[][]> regionPerc;
+    LinkedList<int[][]> majorPerc;
+    
+    public void setUp()
+    {
+        calc = new Calculator("MusicSurveyData.csv", "SongList.csv");
+        hobbPerc = calc.getHobbyPercent();
+        regionPerc = calc.getRegionPercent();
+        majorPerc = calc.getMajorPercent();
+    }
+    
+    public void testCalculator()
+    {
+        assertEquals(hobbPerc.getSize(), 59);
+        assertEquals(regionPerc.getSize(), 59);
+        assertEquals(majorPerc.getSize(), 59);
+        
+        for (int i = 0; i < hobbPerc.getSize(); i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                for (int k = 0; k < 2; k++)
+                {
+                    assertTrue(hobbPerc.get(i)[j][k] < 100);
+                    assertTrue(regionPerc.get(i)[j][k] < 100);
+                    assertTrue(majorPerc.get(i)[j][k] < 100);
+                }
+            }
+        }
+    }
+}
