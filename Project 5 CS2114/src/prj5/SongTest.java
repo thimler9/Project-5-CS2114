@@ -3,6 +3,7 @@
  */
 package prj5;
 
+import java.util.Comparator;
 import student.TestCase;
 
 /**
@@ -61,7 +62,7 @@ public class SongTest extends TestCase {
     }
     
     public void testGetCompareBySongTitle() {
-        Comparator<Song> comparor = song.getCompareByTile();
+        Comparator<Song> comparor = song.getCompareBySongTitle();
         assertEquals(-11, comparor.compare(song, song1));
     }
 }
