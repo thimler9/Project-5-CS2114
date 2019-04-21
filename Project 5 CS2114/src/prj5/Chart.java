@@ -16,13 +16,13 @@ import CS2114.Window;
  */
 public class Chart 
 {   
-    private final int xSpacer = 300;
-    private final int starterXInc = 150;
+    private final int xSpacer = 250;
+    private final int starterXInc = 130;
 
-    private final int ySpacer = 150;
-    private final int starterYInc = 125;
-    private final int yArtistSpacer = 15;
-    private final int yBlackBarSpace = 35;
+    private final int ySpacer = 130;
+    private final int starterYInc = 120;
+    private final int yArtistSpacer = 10;
+    private final int yBlackBarSpace = 30;
 
     private Shape bar1Likes;
     private Shape bar2Likes;
@@ -37,7 +37,7 @@ public class Chart
     private TextShape title;
     private TextShape artist;
 
-    private final int barSpacer = 15;
+    private final int barSpacer = 10;
 
     private Shape blackBar;
 

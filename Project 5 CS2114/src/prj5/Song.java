@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 /**
  * @author Tom
- *
+ * @autor Pranav Sharma
  */
 public class Song {
     private String name;

@@ -18,7 +18,7 @@ public class StudentTest extends TestCase {
         boolean[][] twice = new boolean[10][10];
         twice[5][5] = true;
         student = new Student(0, "04/20/19", Major.MATH_OR_CMDA,
-            Region.NORTHEAST_US, Hobby.MUSIC, twice);
+            Region.NORTHEAST, Hobby.MUSIC, twice);
     }
     
     public void testGetIndex() {
@@ -40,7 +40,7 @@ public class StudentTest extends TestCase {
     }
     
     public void testGetRegion() {
-        assertEquals(Region.NORTHEAST_US, student.getRegion());
+        assertEquals(Region.NORTHEAST, student.getRegion());
     }
     
     
