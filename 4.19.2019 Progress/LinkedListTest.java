@@ -151,8 +151,42 @@ public class LinkedListTest extends TestCase
         assertFalse(test.remove("C"));
     }
     
-    public void testSort()
-    {
-        
+    public void testSort() {
+        Comparator<String> comp = new CompareStrings();
+        test.add("C");
+        test.add("B");
+        test.add("A");
+        LinkedList<String> goal = new LinkedList<String>();
+        goal.add("A");
+        goal.add("B");
+        goal.add("C");
+        assertFalse(equal(test, goal));
+        test.sort(comp);
+        assertTrue(equal(test, goal));
+    }
+
+
+    private boolean equal(LinkedList<String> o1, LinkedList<String> o2){
+        if (o1==null || o2==null){
+            return false;
+        }
+        if(o1.getSize() == o2.getSize()){
+            for(int i = 0; i < o1.getSize(); i++){
+                if(!o1.get(i).equals(o2.get(i))){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    private class CompareStrings implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            return o1.compareToIgnoreCase(o2);
+        }
     }
 }
