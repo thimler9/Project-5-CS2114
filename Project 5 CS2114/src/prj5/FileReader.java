@@ -10,6 +10,8 @@ import java.util.Scanner;
  * @author Tom
  * @author Eriq Taing (eriq12)
  *
+ * File reader reads the files and puts the songs
+ * and students in LinkedLists
  */
 public class FileReader {
     private LinkedList<Song> songs;
