@@ -31,7 +31,7 @@ public class Student {
      * @param res
      *            responses for each song
      */
-    public Student(int i, String d, Major m, Region r, Hobby h, boolean[][] res) {
+    public Student(int i, String d, Major m, Region r, Hobby h, Response[][] res) {
         index = i;
         date = d;
         hobby = h;
