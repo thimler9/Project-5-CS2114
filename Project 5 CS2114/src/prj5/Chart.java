@@ -1,6 +1,4 @@
-**
- * 
- */
+
 package prj5;
 
 import java.awt.Color;
