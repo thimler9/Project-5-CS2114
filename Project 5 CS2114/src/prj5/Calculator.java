@@ -19,73 +19,86 @@ import java.util.Comparator;
  */
 public class Calculator implements Comparator<String> {
 
-    private int[][] heard;
-    private int[][] liked;
+    private int[][] heardHobby;
+    private int[][] likedHobby;
+    private int[][] heardMajor;
+    private int[][] likedMajor;
+    private int[][] heardRegion;
+    private int[][] likedRegion;
 
 
     // ~ Constructor
     /**
-     * new a HobbyCount
+     * new a hobby.toLowerCase()Count
      * 
      */
     public Calculator() {
-        heard = new int[4][2];
-        liked = new int[4][2];
-    }
+        heardHobby = new int[4][2];
+        likedHobby = new int[4][2];
+        heardMajor = new int[4][2];
+        likedMajor = new int[4][2];
+        heardRegion = new int[4][2];
+        likedRegion = new int[4][2];
+    } 
 
 
     // ~ Methods
     /**
      * Increment the results
      * 
-     * @param hobby
-     *            represent the hobby of a student
-     * @param answerHeard
+     * @param hobby.toLowerCase()
+     *            represent the hobby.toLowerCase() of a student
+     * @param hasHeard
      *            whether that student has heard this song or not
-     * @param answerLike
+     * @param hasLike
      *            whether that student likes that song or not
      */
-    public void increment(String hobby, String hasHeard, String hasLiked) {
-        heard(hobby, hasHeard);
-        liked(hobby, hasLiked);
+    public void increment(String hobby, String major, String region, String hasHeard, String hasLiked) {
+        heardHobby(hobby, hasHeard);
+        likedHobby(hobby, hasLiked);
+        heardMajor(major, hasHeard);
+        likedMajor(major, hasLiked);
+        heardRegion(region, hasHeard);
+        likedRegion(region, hasLiked);
     }
 
+    
 
     /**
      * increase the heard part
      * 
-     * @param hobby
-     *            represents the hobby of the student
+     * @param hobby.toLowerCase()
+     *            represents the hobby.toLowerCase() of the student
      * @param answer
      *            answer to like or not
      */
-    private void heard(String hobby, String answer) {
+    private void heardHobby(String hobby, String answer) {
         if (answer == "Yes") {
-            if (hobby == "reading") {
-                heard[0][1]++;
+            if (hobby.toLowerCase() == "reading") {
+                heardHobby[0][1]++;
             }
-            else if (hobby == "art") {
-                heard[1][1]++;
+            else if (hobby.toLowerCase() == "art") {
+                heardHobby[1][1]++;
             }
-            else if (hobby == "sports") {
-                heard[2][1]++;
+            else if (hobby.toLowerCase() == "sports") {
+                heardHobby[2][1]++;
             }
-            else if (hobby == "music") {
-                heard[3][1]++;
+            else if (hobby.toLowerCase() == "music") {
+                heardHobby[3][1]++;
             }
         }
         else if (answer == "No") {
-            if (hobby == "reading") {
-                heard[0][0]++;
+            if (hobby.toLowerCase() == "reading") {
+                heardHobby[0][0]++;
             }
-            else if (hobby == "art") {
-                heard[1][0]++;
+            else if (hobby.toLowerCase() == "art") {
+                heardHobby[1][0]++;
             }
-            else if (hobby == "sports") {
-                heard[2][0]++;
+            else if (hobby.toLowerCase() == "sports") {
+                heardHobby[2][0]++;
             }
-            else if (hobby == "music") {
-                heard[3][0]++;
+            else if (hobby.toLowerCase() == "music") {
+                heardHobby[3][0]++;
             }
         }
 
@@ -95,38 +108,183 @@ public class Calculator implements Comparator<String> {
     /**
      * Increase the like part.
      * 
-     * @param hobby
-     *            the student's hobby
+     * @param hobby.toLowerCase()
+     *            the student's hobby.toLowerCase()
      * @param answer
      *            answer to like or not
      */
-    private void liked(String hobby, String answer) {
+    private void likedHobby(String hobby, String answer) {
         if (answer == "Yes") {
-            if (hobby == "reading") {
-                liked[0][1]++;
+            if (hobby.toLowerCase() == "reading") {
+                likedHobby[0][1]++;
             }
-            else if (hobby == "art") {
-                liked[1][1]++;
+            else if (hobby.toLowerCase() == "art") {
+                likedHobby[1][1]++;
             }
-            else if (hobby == "sports") {
-                liked[2][1]++;
+            else if (hobby.toLowerCase() == "sports") {
+                likedHobby[2][1]++;
             }
-            else if (hobby == "music") {
-                liked[3][1]++;
+            else if (hobby.toLowerCase() == "music") {
+                likedHobby[3][1]++;
             }
         }
         else if (answer == "No") {
-            if (hobby == "reading") {
-                liked[0][0]++;
+            if (hobby.toLowerCase() == "reading") {
+                likedHobby[0][0]++;
             }
-            else if (hobby == "art") {
-                liked[1][0]++;
+            else if (hobby.toLowerCase() == "art") {
+                likedHobby[1][0]++;
             }
-            else if (hobby == "sports") {
-                liked[2][0]++;
+            else if (hobby.toLowerCase() == "sports") {
+                likedHobby[2][0]++;
             }
-            else if (hobby == "music") {
-                liked[3][0]++;
+            else if (hobby.toLowerCase() == "music") {
+                likedHobby[3][0]++;
+            }
+        }
+    }
+    
+
+    private void heardMajor (String major, String answer) {
+        if (answer == "Yes") {
+            if (major.toLowerCase() == "computer science") {
+                heardMajor[0][1]++;
+            }
+            else if (major.toLowerCase() == "other engineering") {
+                heardMajor[1][1]++;
+            }
+            else if (major.toLowerCase() == "math or cmda") {
+                heardMajor[2][1]++;
+            }
+            else if (major.toLowerCase() == "other") {
+                heardMajor[3][1]++;
+            }
+        }
+        else if (answer == "No") {
+            if (major.toLowerCase() == "computer science") {
+                heardMajor[0][0]++;
+            }
+            else if (major.toLowerCase() == "other engineering") {
+                heardMajor[1][0]++;
+            }
+            else if (major.toLowerCase() == "math or cmda") {
+                heardMajor[2][0]++;
+            }
+            else if (major.toLowerCase() == "other") {
+                heardMajor[3][0]++;
+            }
+        }
+
+    }
+
+
+    /**
+     * Increase the like part.
+     * 
+     * @param hobby.toLowerCase()
+     *            the student's hobby.toLowerCase()
+     * @param answer
+     *            answer to like or not
+     */
+    private void likedMajor (String major, String answer) {
+        if (answer == "Yes") {
+            if (major.toLowerCase() == "computer science") {
+                likedMajor[0][1]++;
+            }
+            else if (major.toLowerCase() == "other engineering") {
+                likedMajor[1][1]++;
+            }
+            else if (major.toLowerCase() == "math or cmda") {
+                likedMajor[2][1]++;
+            }
+            else if (major.toLowerCase() == "other") {
+                likedMajor[3][1]++;
+            }
+        }
+        else if (answer == "No") {
+            if (major.toLowerCase() == "computer science") {
+                likedMajor[0][0]++;
+            }
+            else if (major.toLowerCase() == "other engineering") {
+                likedMajor[1][0]++;
+            }
+            else if (major.toLowerCase() == "math or cmda") {
+                likedMajor[2][0]++;
+            }
+            else if (major.toLowerCase() == "other") {
+                likedMajor[3][0]++;
+            }
+        }
+    }
+
+    private void heardRegion (String region, String answer) {
+        if (answer == "Yes") {
+            if (region.toLowerCase() == "northeast") {
+                heardRegion[0][1]++;
+            }
+            else if (region.toLowerCase() == "southeast") {
+                heardRegion[1][1]++;
+            }
+            else if (region.toLowerCase() == "united states other than southeast or northeast") {
+                heardRegion[2][1]++;
+            }
+            else if (region.toLowerCase() == "outside of united states") {
+                heardRegion[3][1]++;
+            }
+        }
+        else if (answer == "No") {
+            if (region.toLowerCase() == "northeast") {
+                heardRegion[0][0]++;
+            }
+            else if (region.toLowerCase() == "southeast") {
+                heardRegion[1][0]++;
+            }
+            else if (region.toLowerCase() == "united states other than southeast or northeast") {
+                heardRegion[2][0]++;
+            }
+            else if (region.toLowerCase() == "outside of united states") {
+                heardRegion[3][0]++;
+            }
+        }
+
+    }
+
+
+    /**
+     * Increase the like part.
+     * 
+     * @param hobby.toLowerCase()
+     *            the student's hobby.toLowerCase()
+     * @param answer
+     *            answer to like or not
+     */
+    private void likedRegion (String region, String answer) {
+        if (answer == "Yes") {
+            if (region.toLowerCase() == "northeast") {
+                likedRegion[0][1]++;
+            }
+            else if (region.toLowerCase() == "southeast") {
+                likedRegion[1][1]++;
+            }
+            else if (region.toLowerCase() == "united states other than southeast or northeast") {
+                likedRegion[2][1]++;
+            }
+            else if (region.toLowerCase() == "outside of united states") {
+                likedRegion[3][1]++;
+            }
+        }
+        else if (answer == "No") {
+            if (region.toLowerCase() == "northeast") {
+                likedRegion[0][0]++;
+            }
+            else if (region.toLowerCase() == "southeast") {
+                likedRegion[1][0]++;
+            }
+            else if (region.toLowerCase() == "united states other than southeast or northeast") {
+                likedRegion[2][0]++;
+            }
+            else if (region.toLowerCase() == "ouside of unites states") {
+                likedRegion[3][0]++;
             }
         }
     }
@@ -137,54 +295,93 @@ public class Calculator implements Comparator<String> {
      * 
      * @return the heard or not results
      */
-    public int[] getHeard() {
+    public int[] getHeardHobby() {
         int[] result = new int[4];
         for (int i = 0; i <= 3; i++) {
-            double heards = (heard[i][1] * 1.0);
-            int all = heard[i][0] + heard[i][1];
+            double heards = (heardHobby[i][1] * 1.0);
+            int all = heardHobby[i][0] + heardHobby[i][1];
             result[i] = (int) ((heards / all) * 100);
         }
         return result;
-        /*result[0] = (int)((1.0 * heard[0][1] / (heard[0][0] + heard[0][1]))
-            * 100);
-        result[1] = (int)((1.0 * heard[1][1] / (heard[1][0] + heard[1][1]))
-            * 100);
-        result[2] = (int)((1.0 * heard[2][1] / (heard[2][0] + heard[2][1]))
-            * 100);
-        result[3] = (int)((1.0 * heard[3][1] / (heard[3][0] + heard[3][1]))
-            * 100);3
-        return result;
-        */
     }
-
 
     /**
      * get the like or not results
      * 
      * @return the like or not results
      */
-    public int[] getLike() {
+    public int[] getLikeHobby() {
         int[] result = new int[4];
         for (int i = 0; i <= 3; i++) {
-            double like = (liked[i][1] * 1.0);
-            int all = liked[i][0] + liked[i][1];
+            double like = (likedHobby[i][1] * 1.0);
+            int all = likedHobby[i][0] + likedHobby[i][1];
             result[i] = (int) ((like / all) * 100);
         }
         return result;
-        /*result[0] = (int)((1.0 * liked[0][1] / (liked[0][0] + liked[0][1]))
-            * 100);
-        result[1] = (int)((1.0 * liked[1][1] / (liked[1][0] + liked[1][1]))
-            * 100);
-        result[2] = (int)((1.0 * liked[2][1] / (liked[2][0] + liked[2][1]))
-            * 100);
-        result[3] = (int)((1.0 * liked[3][1] / (liked[3][0] + liked[3][1]))
-            * 100);
-        return result;
-        */
     }
 
+    /**
+     * get the heard or not results in percentages
+     * 
+     * @return the heard or not results
+     */
+    public int[] getHeardMajor() {
+        int[] result = new int[4];
+        for (int i = 0; i <= 3; i++) {
+            double heards = (heardMajor[i][1] * 1.0);
+            int all = heardMajor[i][0] + heardMajor[i][1];
+            result[i] = (int) ((heards / all) * 100);
+        }
+        return result;
+    }
 
     /**
+     * get the like or not results
+     * 
+     * @return the like or not results
+     */
+    public int[] getLikeMajor() {
+        int[] result = new int[4];
+        for (int i = 0; i <= 3; i++) {
+            double like = (likedMajor[i][1] * 1.0);
+            int all = likedMajor[i][0] + likedMajor[i][1];
+            result[i] = (int) ((like / all) * 100);
+        }
+        return result;
+    }
+
+    /**
+     * get the heard or not results in percentages
+     * 
+     * @return the heard or not results
+     */
+    public int[] getHeardRegion() {
+        int[] result = new int[4];
+        for (int i = 0; i <= 3; i++) {
+            double heards = (heardRegion[i][1] * 1.0);
+            int all = heardRegion[i][0] + heardRegion[i][1];
+            result[i] = (int) ((heards / all) * 100);
+        }
+        return result;
+    }
+
+    /**
+     * get the like or not results
+     * 
+     * @return the like or not results
+     */
+    public int[] getLikeRegion() {
+        int[] result = new int[4];
+        for (int i = 0; i <= 3; i++) {
+            double like = (likedRegion[i][1] * 1.0);
+            int all = likedRegion[i][0] + likedRegion[i][1];
+            result[i] = (int) ((like / all) * 100);
+        }
+        return result;
+    }
+   
+
+   /**
      * Compare the two strings
      * 
      * @return 0, negative, or positive value int
@@ -193,5 +390,6 @@ public class Calculator implements Comparator<String> {
     public int compare(String str1, String str2) {
         return str1.compareTo(str2);
     }
-
+        
+       
 }
