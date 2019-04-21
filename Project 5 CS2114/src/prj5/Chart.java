@@ -35,10 +35,10 @@ public class Chart {
     private int[][] heard;
     private int[][] likes;
 
-    private int[] h;
-    private int[] l;
+    private int[] hear;
+    private int[] like;
 
-    private int songPos;
+    private int songs;
 
     private Window window;
 
@@ -58,7 +58,7 @@ public class Chart {
         //h = 
         //l =
         
-        songPos = songs;
+        this.songs = songs;
 
         title = new TextShape(X * width - beginwidth, Y * lengthY
             - beginLengthY, song.getSong());
@@ -88,7 +88,7 @@ public class Chart {
             int barLx = X * width - beginwidth + 5;
             int barLy = Y * lengthY - beginLengthY + yBar
                 + space * i;
-            Shape bars = new Shape(barLx, barLy, l[i], 15, new Color(c1, c2,
+            Shape bars = new Shape(barLx, barLy, like[i], 15, new Color(c1, c2,
                 c3));
             window.addShape(bars);
         }
@@ -98,10 +98,10 @@ public class Chart {
             int c1 = r.nextInt(255);
             int c2 = r.nextInt(255);
             int c3 = r.nextInt(255);
-            int barHx = X * width - beginwidth - h[i];
+            int barHx = X * width - beginwidth - hear[i];
             int barHy = Y * lengthY - beginLengthY + yBar
                 + space * i;
-            Shape bars = new Shape(barHx, barHy, h[i], 15, new Color(c2, c2,
+            Shape bars = new Shape(barHx, barHy, hear[i], 15, new Color(c2, c2,
                 c3));
             window.addShape(bars);
         }
