@@ -111,17 +111,17 @@ public class Song {
     }
 
 
-    public Comparator<Song> getCompareByDate(Song song1, Song song2) {
+    public Comparator<Song> getCompareByDate() {
         return new CompareByDate();
     }
 
 
-    public Comparator<Song> getCompareByGenre(Song song1, Song song2) {
+    public Comparator<Song> getCompareByGenre() {
         return new CompareByGenre();
     }
 
 
-    public Comparator<Song> getCompareBySongTitle(Song song1, Song song2) {
+    public Comparator<Song> getCompareBySongTitle() {
         return new CompareBySongTitle();
     }
 
