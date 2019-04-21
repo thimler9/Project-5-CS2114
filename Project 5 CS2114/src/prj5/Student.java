@@ -12,7 +12,7 @@ public class Student {
     private Major major;
     private Region region;
     // 2d, first index is song, second index is heard, then liked
-    private boolean[][] Response;
+    private Response[][] Responses;
 
 
     /**
@@ -37,7 +37,7 @@ public class Student {
         hobby = h;
         major = m;
         region = r;
-        Response = res;
+        Responses = res;
     }
 
 
@@ -100,7 +100,7 @@ public class Student {
      *            which type of response wanted (0 for heard, 1 for liked)
      * @return boolean for response
      */
-    public boolean getResponse(int songIndex, int whatResponse) {
-        return Response[songIndex][whatResponse];
+    public Response getResponse(int songIndex, int whatResponse) {
+        return Responses[songIndex][whatResponse];
     }
 }
