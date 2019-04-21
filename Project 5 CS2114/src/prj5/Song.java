@@ -18,9 +18,6 @@ public class Song {
     // 4 x 4 1st is type of enum, 2nd is the following:
     //0 - heard 1 - answered
     //1 - liked 2 - answered
-    private int[][] hobbyInfo;
-    private int[][] majorInfo;
-    private int[][] stateInfo;
 
 
     public Song(
@@ -34,9 +31,6 @@ public class Song {
         releaseYear = year;
         this.genre = genre;
         this.index = index;
-        hobbyInfo = new int[4][4];
-        majorInfo = new int[4][4];
-        stateInfo = new int[4][4];
     }
 
 
@@ -63,48 +57,6 @@ public class Song {
     public int getIndex() {
         return index;
     }
-    
-    public void incrementHobbyInfo(int type, int status){
-        hobbyInfo[type][status]++;
-    }
-
-    public void incrementMajorInfo(int type, int status){
-        majorInfo[type][status]++;
-    }
-    
-    public void incrementStateInfo(int type, int status){
-        stateInfo[type][status]++;
-    }
-
-    /**
-     * This method gets the hobby information
-     * 
-     * @return the information of the hobby.
-     */
-    public int[][] getHobbyInfo() {
-        return hobbyInfo;
-    }
-
-
-    /**
-     * This method gets the major information.
-     * 
-     * @return the information of the major.
-     */
-    public int[][] getMajorInfo() {
-        return majorInfo;
-    }
-
-
-    /**
-     * This method gets the state information.
-     * 
-     * @return the information of each state.
-     */
-    public int[][] getStateInfo() {
-        return stateInfo;
-    }
-
 
     public Comparator<Song> getCompareByArtist() {
         return new CompareByArtist();
