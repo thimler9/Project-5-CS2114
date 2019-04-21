@@ -13,17 +13,11 @@ public class SongTest extends TestCase {
 
     private Song song;
     private Song song1;
-    private int[][] hobby;
-    private int[][] major;
-    private int[][] state;
 
 
     public void setUp() {
-        hobby = new int[2][2];
-        major = new int[2][2];
-        state = new int[2][4];
-        song = new Song("Happy", "Mike", 1980, "Rock", 0, hobby, major, state);
-        song1 = new Song("Sad", "John", 1982, "Pop", 1, hobby, major, state);
+        song = new Song("Mike", "Happy", 1980, "Rock", 0);
+        song1 = new Song("John", "Sad", 1982, "Pop", 1);
     }
 
 
