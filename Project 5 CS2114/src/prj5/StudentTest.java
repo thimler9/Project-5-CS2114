@@ -15,8 +15,8 @@ public class StudentTest extends TestCase {
 
 
     public void setUp() {
-        boolean[][] twice = new boolean[10][10];
-        twice[5][5] = true;
+        Response[][] twice = new Response[10][10];
+        twice[5][5] = Response.YES;
         student = new Student(0, "04/20/19", Major.MATH_OR_CMDA,
             Region.NORTHEAST, Hobby.MUSIC, twice);
     }
@@ -45,7 +45,7 @@ public class StudentTest extends TestCase {
     
     
     public void testGetResponse() {
-        assertEquals(true, student.getResponse(5, 5));
+        assertEquals(Response.YES, student.getResponse(5, 5));
     }
     
 }
