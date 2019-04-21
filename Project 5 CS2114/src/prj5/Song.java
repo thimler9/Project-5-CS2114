@@ -15,6 +15,9 @@ public class Song {
     private int releaseYear;
     private String genre;
     private int index;
+    // 4 x 4 1st is type of enum, 2nd is the following:
+    //0 - heard 1 - answered
+    //1 - liked 2 - answered
     private int[][] hobbyInfo;
     private int[][] majorInfo;
     private int[][] stateInfo;
@@ -25,19 +28,15 @@ public class Song {
         String artist,
         int year,
         String genre,
-        int index,
-        int[][] hobby,
-        int[][] major,
-        int[][] state) {
-
+        int index) {
         this.name = name;
         this.artist = artist;
         releaseYear = year;
         this.genre = genre;
         this.index = index;
-        hobbyInfo = hobby;
-        majorInfo = major;
-        stateInfo = state;
+        hobbyInfo = new int[4][4];
+        majorInfo = new int[4][4];
+        stateInfo = new int[4][4];
     }
 
 
@@ -64,7 +63,18 @@ public class Song {
     public int getIndex() {
         return index;
     }
+    
+    public void incrementHobbyInfo(int type, int status){
+        hobbyInfo[type][status]++;
+    }
 
+    public void incrementMajorInfo(int type, int status){
+        majorInfo[type][status]++;
+    }
+    
+    public void incrementStateInfo(int type, int status){
+        stateInfo[type][status]++;
+    }
 
     /**
      * This method gets the hobby information
@@ -96,27 +106,23 @@ public class Song {
     }
 
 
-    public int getCompareByArtist(Song song1, Song song2) {
-        CompareByArtist compare = new CompareByArtist();
-        return compare.compare(song1, song2);
+    public Comparator<Song> getCompareByArtist() {
+        return new CompareByArtist();
     }
 
 
-    public int getCompareByDate(Song song1, Song song2) {
-        CompareByDate compare = new CompareByDate();
-        return compare.compare(song1, song2);
+    public Comparator<Song> getCompareByDate(Song song1, Song song2) {
+        return new CompareByDate();
     }
 
 
-    public int getCompareByGenre(Song song1, Song song2) {
-        CompareByGenre compare = new CompareByGenre();
-        return compare.compare(song1, song2);
+    public Comparator<Song> getCompareByGenre(Song song1, Song song2) {
+        return new CompareByGenre();
     }
 
 
-    public int getCompareBySongTitle(Song song1, Song song2) {
-        CompareBySongTitle compare = new CompareBySongTitle();
-        return compare.compare(song1, song2);
+    public Comparator<Song> getCompareBySongTitle(Song song1, Song song2) {
+        return new CompareBySongTitle();
     }
 
 
