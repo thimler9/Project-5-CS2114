@@ -58,22 +58,22 @@ public class Song {
         return index;
     }
 
-    public Comparator<Song> getCompareByArtist() {
+    public Comparator<Song> getCompareByArtist(Song song, Song song1) {
         return new CompareByArtist();
     }
 
 
-    public Comparator<Song> getCompareByDate() {
+    public Comparator<Song> getCompareByDate(Song song, Song song1) {
         return new CompareByDate();
     }
 
 
-    public Comparator<Song> getCompareByGenre() {
+    public Comparator<Song> getCompareByGenre(Song song, Song song1) {
         return new CompareByGenre();
     }
 
 
-    public Comparator<Song> getCompareBySongTitle() {
+    public Comparator<Song> getCompareBySongTitle(Song song, Song song1) {
         return new CompareBySongTitle();
     }
 
