@@ -17,12 +17,7 @@ public class Song {
     private int index;
 
 
-    public Song(
-        String name,
-        String artist,
-        int year,
-        String genre,
-        int index) {
+    public Song(String name, String artist, int year, String genre, int index) {
         this.name = name;
         this.artist = artist;
         releaseYear = year;
@@ -54,6 +49,7 @@ public class Song {
     public int getIndex() {
         return index;
     }
+
 
     public Comparator<Song> getCompareByArtist() {
         return new CompareByArtist();
@@ -123,7 +119,7 @@ public class Song {
          */
         @Override
         public int compare(Song song1, Song song2) {
-            return song1.getGenre().compareToIgnoreCase(song2.getGenre());
+            return song1.getGenre().compareTo(song2.getGenre());
         }
 
     }
