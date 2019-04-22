@@ -103,4 +103,9 @@ public class Student {
     public Response getResponse(int songIndex, int whatResponse) {
         return Responses[songIndex][whatResponse];
     }
+
+
+    public void setResponses(Response[][] responses) {
+        this.Responses = responses;
+    }
 }
