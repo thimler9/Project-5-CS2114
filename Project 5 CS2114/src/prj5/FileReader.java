@@ -9,12 +9,15 @@ import java.util.Scanner;
 /**
  * @author Tom
  * @author Eriq Taing (eriq12)
- *
+ * @version 2019.4.20
+ * 
+ * Takes input files and reads them
  */
 public class FileReader {
-    private LinkedList<Song> songs;
-    private LinkedList<Student> students;
-    private LinkedList<Student> orginalOrderStudents;
+    
+    private LinkedList<Song> songs; //List of songs
+    private LinkedList<Student> students; //List of students
+
     /**
      * amount of songs
      */
@@ -36,7 +39,7 @@ public class FileReader {
         }
         try {
             students = extractStudents(studentFileName);
-            orginalOrderStudents = extractStudents(studentFileName);
+            extractStudents(studentFileName);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,14 +88,12 @@ public class FileReader {
             // Assigning the maj, reg, and hob values
             if (data.length > 2) {
                 if (!data[2].equals("")) {
-                    maj =
-                        Major.valueOf(data[2].replaceAll(" ", "_")
-                            .toUpperCase());
+                    maj = Major.valueOf(data[2].replaceAll(" ", "_")
+                        .toUpperCase());
                 }
                 if (!data[3].equals("")) {
-                    reg =
-                        Region.valueOf(data[3].replaceAll(" ", "_").replaceAll(
-                            "[()]", "").toUpperCase());
+                    reg = Region.valueOf(data[3].replaceAll(" ", "_")
+                        .replaceAll("[()]", "").toUpperCase());
                 }
                 if (!data[4].equals("")) {
                     hob = Hobby.valueOf(data[4].toUpperCase());
@@ -109,8 +110,8 @@ public class FileReader {
                 }
             }
 
-            Student newEntry =
-                new Student(index, date, maj, reg, hob, responses);
+            Student newEntry = new Student(index, date, maj, reg, hob,
+                responses);
             result.add(newEntry);
         }
         return result;
@@ -138,9 +139,8 @@ public class FileReader {
         while (sc.hasNextLine()) {
 
             String[] data = sc.nextLine().split(",");
-            Song newSong =
-                new Song(data[0], data[1], Integer.valueOf(data[2]), data[3],
-                    index);
+            Song newSong = new Song(data[0], data[1], Integer.valueOf(data[2]),
+                data[3], index);
             result.add(newSong);
             index++;
         }
@@ -166,27 +166,5 @@ public class FileReader {
      */
     public LinkedList<Student> getStudents() {
         return students;
-    }
-
-
-    /**
-     * Updates the response array
-     */
-    public void updateResponse(LinkedList<Song> songs) {
-        students = orginalOrderStudents.clone();
-        for (int i = 0; i < students.getSize(); i++) {
-            Response[][] responses = new Response[numOfSongs][2];
-            int index = 0;
-            for (int j = 0; j < songs.getSize(); j++) {
-                for (int k = 0; k < songs.getSize(); k++) {
-                    if (songs.get(j) == this.songs.get(k)) {
-                        responses[index][0] = students.get(i).getResponse(k, 0);
-                        responses[index][1] = students.get(i).getResponse(k, 1);
-                        index++;
-                    }
-                }
-            }
-            students.get(i).setResponses(responses);
-        }
     }
 }
