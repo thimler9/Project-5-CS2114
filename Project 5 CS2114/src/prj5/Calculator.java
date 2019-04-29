@@ -106,32 +106,10 @@ public class Calculator {
         return reader;
     }
 
-
-    // ----------------------------------------------------------------------------
-
-    /**
-     * Calculates the percentages for each hobby
-     */
-    private void hobbyPercent() {
-        //reading
-        CompareEnums comp = new CompareByHobby(Hobby.READING);
-        getPercent(hobbProp, comp);
-        //art
-        ((CompareByHobby)comp).setHobby(Hobby.ART);
-        getPercent(hobbProp, comp);
-        //sport
-        ((CompareByHobby)comp).setHobby(Hobby.SPORTS);
-        getPercent(hobbProp, comp);
-        //music
-        ((CompareByHobby)comp).setHobby(Hobby.MUSIC);
-        getPercent(hobbProp, comp);
-    }
-
-
     /**
      * redo of getHPercent
      */
-    private void getPercent(LinkedList<int[][]> prop, CompareEnums e) {
+    private void getPercent(LinkedList<int[][]> prop, CompareEnums e, int pos) {
         int heardCount = 0;
         int likesCount = 0;
         int heardTotal = 0;
@@ -154,14 +132,14 @@ public class Calculator {
                     }
                 }
             }
-            prop.get(i)[0][0] = 0;
+            prop.get(i)[pos][0] = 0;
             if (heardTotal > 0) {
-                prop.get(i)[0][0] = heardCount * 100 / heardTotal;
+                prop.get(i)[pos][0] = heardCount * 100 / heardTotal;
             }
 
-            prop.get(i)[0][1] = 0;
+            prop.get(i)[pos][1] = 0;
             if (likesTotal > 0) {
-                prop.get(i)[0][1] = likesCount * 100 / likesTotal;
+                prop.get(i)[pos][1] = likesCount * 100 / likesTotal;
             }
             heardCount = 0;
             likesCount = 0;
@@ -292,7 +270,7 @@ public class Calculator {
          *            original major to set
          */
         private CompareByMajor(Major major) {
-            setHobby(major);
+            setMajor(major);
         }
 
 
@@ -302,7 +280,7 @@ public class Calculator {
          * @param major
          *            new major to set
          */
-        private void setHobby(Major major) {
+        private void setMajor(Major major) {
             m = major;
         }
 
@@ -319,25 +297,38 @@ public class Calculator {
     }
 
 
+
+    // ----------------------------------------------------------------------------
+
+    /**
+     * Calculates the percentages for each hobby
+     */
+    private void hobbyPercent() {
+        Hobby[] values =
+            { Hobby.READING, Hobby.ART, Hobby.SPORTS, Hobby.MUSIC };
+        CompareEnums comp = new CompareByHobby(null);
+        for (int i = 0; i < values.length; i++) {
+            ((CompareByHobby)comp).setHobby(values[i]);
+            getPercent(hobbProp, comp, i);
+        }
+    }
+
+
     // ----------------------------------------------------------------------------
 
     /**
      * Calculates the percentages for each region
      */
     private void regionPercent() {
-        // NE
-        CompareEnums comp = new CompareByRegion(Region.NORTHEAST);
-        getPercent(regionProp, comp);
-        // OUT
-        ((CompareByRegion)comp).setRegion(Region.OUTSIDE_OF_UNITED_STATES);
-        getPercent(regionProp, comp);
-        // SE
-        ((CompareByRegion)comp).setRegion(Region.SOUTHEAST);
-        getPercent(regionProp, comp);
-        // NotSEorNW
-        ((CompareByRegion)comp)
-            .setRegion(Region.UNITED_STATES_OTHER_THAN_SOUTHEAST_OR_NORTHWEST);
-        getPercent(regionProp, comp);
+        Region[] values =
+            { Region.NORTHEAST, Region.OUTSIDE_OF_UNITED_STATES,
+                Region.SOUTHEAST,
+                Region.UNITED_STATES_OTHER_THAN_SOUTHEAST_OR_NORTHWEST };
+        CompareEnums comp = new CompareByRegion(null);
+        for (int i = 0; i < values.length; i++) {
+            ((CompareByRegion)comp).setRegion(values[i]);
+            getPercent(regionProp, comp, i);
+        }
     }
 
 
@@ -347,17 +338,13 @@ public class Calculator {
      * Calculates the percentages for each major
      */
     private void majorPercent() {
-        // CompSci
-        CompareEnums comp = new CompareByMajor(Major.COMPUTER_SCIENCE);
-        getPercent(majorProp, comp);
-        // Math/CMDA
-        ((CompareByMajor)comp).setHobby(Major.MATH_OR_CMDA);
-        getPercent(majorProp, comp);
-        // Other Engineering
-        ((CompareByMajor)comp).setHobby(Major.OTHER_ENGINEERING);
-        getPercent(majorProp, comp);
-        // Other
-        ((CompareByMajor)comp).setHobby(Major.MATH_OR_CMDA);
-        getPercent(majorProp, comp);
+        Major[] values =
+            { Major.COMPUTER_SCIENCE, Major.MATH_OR_CMDA,
+                Major.OTHER_ENGINEERING, Major.OTHER };
+        CompareEnums comp = new CompareByMajor(null);
+        for (int i = 0; i < values.length; i++) {
+            ((CompareByMajor)comp).setMajor(values[i]);
+            getPercent(majorProp, comp, i);
+        }
     }
 }
