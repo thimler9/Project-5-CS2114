@@ -486,6 +486,13 @@ public class ProjectWindow {
     }
 
 
+     /**
+     * Returns the correct arrayList based on the enum string
+     * 
+     * @param string
+     *            the enum string
+     * @return the linkedList of the enum
+     */
     private LinkedList<int[][]> getEnumList(String string) {
         if (string.equals("Hobby")) {
             return hobbPerc;
