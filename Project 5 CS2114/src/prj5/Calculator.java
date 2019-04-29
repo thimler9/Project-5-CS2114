@@ -1,6 +1,6 @@
 /*
  * Virginia Tech Honor Code Pledge:
- *
+ * 
  * As a Hokie, I will conduct myself with honor
  * and integrity at all times.
  * I will not lie, cheat, or steal, nor will I
@@ -107,31 +107,39 @@ public class Calculator {
     }
 
 
-// ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Calculates the percentages for each hobby
      */
     private void hobbyPercent() {
-        readingPercent();
-        artPercent();
-        sportsPercent();
-        musicPercent();
+        //reading
+        CompareEnums comp = new CompareByHobby(Hobby.READING);
+        getPercent(hobbProp, comp);
+        //art
+        ((CompareByHobby)comp).setHobby(Hobby.ART);
+        getPercent(hobbProp, comp);
+        //sport
+        ((CompareByHobby)comp).setHobby(Hobby.SPORTS);
+        getPercent(hobbProp, comp);
+        //music
+        ((CompareByHobby)comp).setHobby(Hobby.MUSIC);
+        getPercent(hobbProp, comp);
     }
 
 
     /**
-     * Calculates the percentage of people who read
-     * and whether or not they like each song and have heard of it
+     * redo of getHPercent
      */
-    private void readingPercent() {
+    private void getPercent(LinkedList<int[][]> prop, CompareEnums e) {
         int heardCount = 0;
         int likesCount = 0;
         int heardTotal = 0;
         int likesTotal = 0;
         for (int i = 0; i < songs.getSize(); i++) {
             for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getHobby() == Hobby.READING) {
+                Student s = students.get(j);
+                if (e.compare(s)) {
                     if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
                         if (students.get(j).getResponse(i, 0) == Response.YES) {
                             heardCount++;
@@ -146,18 +154,14 @@ public class Calculator {
                     }
                 }
             }
-            if (heardTotal == 0) {
-                hobbProp.get(i)[0][0] = 0;
-            }
-            else {
-                hobbProp.get(i)[0][0] = heardCount * 100 / heardTotal;
+            prop.get(i)[0][0] = 0;
+            if (heardTotal > 0) {
+                prop.get(i)[0][0] = heardCount * 100 / heardTotal;
             }
 
-            if (likesTotal == 0) {
-                hobbProp.get(i)[0][1] = 0;
-            }
-            else {
-                hobbProp.get(i)[0][1] = likesCount * 100 / likesTotal;
+            prop.get(i)[0][1] = 0;
+            if (likesTotal > 0) {
+                prop.get(i)[0][1] = likesCount * 100 / likesTotal;
             }
             heardCount = 0;
             likesCount = 0;
@@ -168,549 +172,192 @@ public class Calculator {
 
 
     /**
-     * Calculates the percentage of people who like art
-     * and whether or not they like each song and have heard of it
+     * 
+     * @author Eriq Taing (eriq12)
+     *         to replicate comparator
      */
-    private void artPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getHobby() == Hobby.ART) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                hobbProp.get(i)[1][0] = 0;
-            }
-            else {
-                hobbProp.get(i)[1][0] = heardCount * 100 / heardTotal;
-            }
+    private interface CompareEnums {
+        /**
+         * to allow usage of the same code across different enums
+         * 
+         * @param s
+         *            student comparing enum
+         * @return if the enums are the same
+         */
+        public abstract boolean compare(Student s);
+    }
 
-            if (likesTotal == 0) {
-                hobbProp.get(i)[1][1] = 0;
-            }
-            else {
-                hobbProp.get(i)[1][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
+
+    /**
+     * 
+     * @author Eriq Taing (eriq12)
+     *         compares regions
+     */
+    private class CompareByRegion implements CompareEnums {
+        private Region r;
+
+
+        /**
+         * constructor
+         * 
+         * @param region
+         *            original region to set
+         */
+        private CompareByRegion(Region region) {
+            setRegion(region);
+        }
+
+
+        /**
+         * to reuse object
+         * 
+         * @param region
+         *            new region to set
+         */
+        private void setRegion(Region region) {
+            r = region;
+        }
+
+
+        /**
+         * to allow usage of the same code across different enums
+         * 
+         * @param s
+         *            student comparing Region
+         * @return if the regions are the same
+         */
+        public boolean compare(Student s) {
+            return s.getRegion() == r;
         }
     }
 
 
     /**
-     * Calculates the percentage of people who like sports
-     * and whether or not they like each song and have heard of it
+     * 
+     * @author Eriq Taing (eriq12)
+     *         compares hobby
      */
-    private void sportsPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getHobby() == Hobby.SPORTS) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                hobbProp.get(i)[2][0] = 0;
-            }
-            else {
-                hobbProp.get(i)[2][0] = heardCount * 100 / heardTotal;
-            }
+    private class CompareByHobby implements CompareEnums {
+        private Hobby h;
 
-            if (likesTotal == 0) {
-                hobbProp.get(i)[2][1] = 0;
-            }
-            else {
-                hobbProp.get(i)[2][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
+
+        /**
+         * constructor
+         * 
+         * @param hobby
+         *            original hobby to set
+         */
+        private CompareByHobby(Hobby hobby) {
+            setHobby(hobby);
+        }
+
+
+        /**
+         * to reuse object
+         * 
+         * @param hobby
+         *            new hobby to set
+         */
+        private void setHobby(Hobby hobby) {
+            h = hobby;
+        }
+
+
+        /**
+         * to allow usage of the same code across different enums
+         * 
+         * @param s
+         *            student comparing Hobby
+         * @return if the hobbys are the same
+         */
+        public boolean compare(Student s) {
+            return s.getHobby() == h;
         }
     }
 
 
     /**
-     * Calculates the percentage of people who like music
-     * and whether or not they like each song and have heard of it
+     * 
+     * @author Eriq Taing (eriq12)
+     *         compares Major
      */
-    private void musicPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getHobby() == Hobby.MUSIC) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                hobbProp.get(i)[3][0] = 0;
-            }
-            else {
-                hobbProp.get(i)[3][0] = heardCount * 100 / heardTotal;
-            }
+    private class CompareByMajor implements CompareEnums {
+        private Major m;
 
-            if (likesTotal == 0) {
-                hobbProp.get(i)[3][1] = 0;
-            }
-            else {
-                hobbProp.get(i)[3][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
+
+        /**
+         * constructor
+         * 
+         * @param major
+         *            original major to set
+         */
+        private CompareByMajor(Major major) {
+            setHobby(major);
+        }
+
+
+        /**
+         * to reuse object
+         * 
+         * @param major
+         *            new major to set
+         */
+        private void setHobby(Major major) {
+            m = major;
+        }
+
+
+        /**
+         * to allow code reusage across
+         * 
+         * @param s
+         *            Student to compare
+         */
+        public boolean compare(Student s) {
+            return s.getMajor() == m;
         }
     }
 
 
-// ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Calculates the percentages for each region
      */
     private void regionPercent() {
-        northeastPercent();
-        outsidePercent();
-        southeastPercent();
-        notSEorNE();
+        // NE
+        CompareEnums comp = new CompareByRegion(Region.NORTHEAST);
+        getPercent(regionProp, comp);
+        // OUT
+        ((CompareByRegion)comp).setRegion(Region.OUTSIDE_OF_UNITED_STATES);
+        getPercent(regionProp, comp);
+        // SE
+        ((CompareByRegion)comp).setRegion(Region.SOUTHEAST);
+        getPercent(regionProp, comp);
+        // NotSEorNW
+        ((CompareByRegion)comp)
+            .setRegion(Region.UNITED_STATES_OTHER_THAN_SOUTHEAST_OR_NORTHWEST);
+        getPercent(regionProp, comp);
     }
 
 
-    /**
-     * Calculates the percentage of people who are from the NE
-     * and whether or not they like each song and have heard of it
-     */
-    private void northeastPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getRegion() == Region.NORTHEAST) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                regionProp.get(i)[0][0] = 0;
-            }
-            else {
-                regionProp.get(i)[0][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                regionProp.get(i)[0][1] = 0;
-            }
-            else {
-                regionProp.get(i)[0][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who are from outside the US
-     * and whether or not they like each song and have heard of it
-     */
-    private void outsidePercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j)
-                    .getRegion() == Region.OUTSIDE_OF_UNITED_STATES) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                regionProp.get(i)[1][0] = 0;
-            }
-            else {
-                regionProp.get(i)[1][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                regionProp.get(i)[1][1] = 0;
-            }
-            else {
-                regionProp.get(i)[1][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who are from the SE
-     * and whether or not they like each song and have heard of it
-     */
-    private void southeastPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getRegion() == Region.SOUTHEAST) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                regionProp.get(i)[2][0] = 0;
-            }
-            else {
-                regionProp.get(i)[2][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                regionProp.get(i)[2][1] = 0;
-            }
-            else {
-                regionProp.get(i)[2][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who live in the US but not the
-     * SE or NE
-     * and whether or not they like each song and have heard of it
-     */
-    private void notSEorNE() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j)
-                    .getRegion() == 
-                    Region.UNITED_STATES_OTHER_THAN_SOUTHEAST_OR_NORTHWEST) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                regionProp.get(i)[3][0] = 0;
-            }
-            else {
-                regionProp.get(i)[3][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                regionProp.get(i)[3][1] = 0;
-            }
-            else {
-                regionProp.get(i)[3][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-// ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Calculates the percentages for each major
      */
     private void majorPercent() {
-        compSciPercent();
-        mathCMDAPercent();
-        otherEnginePercent();
-        otherPercent();
-    }
-
-
-    /**
-     * Calculates the percentage of people who study Comp Sci
-     * and whether or not they like each song and have heard of it
-     */
-    private void compSciPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getMajor() == Major.COMPUTER_SCIENCE) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                majorProp.get(i)[0][0] = 0;
-            }
-            else {
-                majorProp.get(i)[0][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                majorProp.get(i)[0][1] = 0;
-            }
-            else {
-                majorProp.get(i)[0][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who study math or CMDA
-     * and whether or not they like each song and have heard of it
-     */
-    private void mathCMDAPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getMajor() == Major.MATH_OR_CMDA) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                majorProp.get(i)[1][0] = 0;
-            }
-            else {
-                majorProp.get(i)[1][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                majorProp.get(i)[1][1] = 0;
-            }
-            else {
-                majorProp.get(i)[1][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who study other engineerings
-     * and whether or not they like each song and have heard of it
-     */
-    private void otherEnginePercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getMajor() == Major.OTHER_ENGINEERING) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                majorProp.get(i)[2][0] = 0;
-            }
-            else {
-                majorProp.get(i)[2][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                majorProp.get(i)[2][1] = 0;
-            }
-            else {
-                majorProp.get(i)[2][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
-    }
-
-
-    /**
-     * Calculates the percentage of people who study
-     * something other than the rest
-     * and whether or not they like each song and have heard of it
-     */
-    private void otherPercent() {
-        int heardCount = 0;
-        int likesCount = 0;
-        int heardTotal = 0;
-        int likesTotal = 0;
-        for (int i = 0; i < songs.getSize(); i++) {
-            for (int j = 0; j < students.getSize(); j++) {
-                if (students.get(j).getMajor() == Major.OTHER) {
-                    if (students.get(j).getResponse(i, 0) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 0) == Response.YES) {
-                            heardCount++;
-                        }
-                        heardTotal++;
-                    }
-                    if (students.get(j).getResponse(i, 1) != Response.NEITHER) {
-                        if (students.get(j).getResponse(i, 1) == Response.YES) {
-                            likesCount++;
-                        }
-                        likesTotal++;
-                    }
-                }
-            }
-            if (heardTotal == 0) {
-                majorProp.get(i)[3][0] = 0;
-            }
-            else {
-                majorProp.get(i)[3][0] = heardCount * 100 / heardTotal;
-            }
-
-            if (likesTotal == 0) {
-                majorProp.get(i)[3][1] = 0;
-            }
-            else {
-                majorProp.get(i)[3][1] = likesCount * 100 / likesTotal;
-            }
-            heardCount = 0;
-            likesCount = 0;
-            heardTotal = 0;
-            likesTotal = 0;
-        }
+        // CompSci
+        CompareEnums comp = new CompareByMajor(Major.COMPUTER_SCIENCE);
+        getPercent(majorProp, comp);
+        // Math/CMDA
+        ((CompareByMajor)comp).setHobby(Major.MATH_OR_CMDA);
+        getPercent(majorProp, comp);
+        // Other Engineering
+        ((CompareByMajor)comp).setHobby(Major.OTHER_ENGINEERING);
+        getPercent(majorProp, comp);
+        // Other
+        ((CompareByMajor)comp).setHobby(Major.MATH_OR_CMDA);
+        getPercent(majorProp, comp);
     }
 }
