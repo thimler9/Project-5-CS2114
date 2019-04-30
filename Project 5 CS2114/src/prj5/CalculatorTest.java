@@ -38,6 +38,16 @@ public class CalculatorTest extends TestCase {
         assertEquals(regionPerc.getSize(), 59);
         assertEquals(majorPerc.getSize(), 59);
 
+        assertEquals(majorPerc.get(0)[0][0], 32);
+        assertEquals(majorPerc.get(0)[1][0], 25);
+        assertEquals(majorPerc.get(0)[2][0], 42);
+        assertEquals(majorPerc.get(0)[3][0], 48);
+        assertEquals(majorPerc.get(0)[0][1], 31);
+        assertEquals(majorPerc.get(0)[1][1], 28);
+        assertEquals(majorPerc.get(0)[2][1], 50);
+        assertEquals(majorPerc.get(0)[3][1], 53);
+        
+
         for (int i = 0; i < hobbPerc.getSize(); i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 2; k++) {
