@@ -61,15 +61,6 @@ public class LinkedList<T> {
         public void setNext(Node<T> next) {
             this.next = next;
         }
-
-        /**
-         * toString method
-         * @return list in an array like form
-         */
-        @Override
-        public String toString() {
-            return data.toString();
-        }
     }
 
     private Node<T> headNode; // The head node of list
@@ -96,7 +87,7 @@ public class LinkedList<T> {
     public T get(int index) {
         Node<T> header = headNode;
 
-        if (index > size || index < 0) {
+        if (index > size - 1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -151,7 +142,7 @@ public class LinkedList<T> {
         Node<T> header = headNode;
         T item = null;
 
-        if (index > size || index < 0) {
+        if (index > size - 1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -257,24 +248,5 @@ public class LinkedList<T> {
         }
 
         return clone;
-    }
-
-    /**
-     * toString method
-     * @return list in an array like form
-     */
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder("[");
-        Node<T> pointer = headNode.getNext();
-        while (pointer != null) {
-            result.append(pointer.toString());
-            if(pointer.getNext() != null){
-                result.append(", ");
-            }
-            pointer = pointer.getNext();
-        }
-        result.append("]");
-        return result.toString();
     }
 }
